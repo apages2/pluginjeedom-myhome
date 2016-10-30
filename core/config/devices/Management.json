@@ -1,0 +1,220 @@
+{
+    "Management": {
+        "name": "Commande de management",
+		"configuration": {
+			"version": "1.0",
+			"update": "Ajout release et versionning"
+		},
+        "subtype": {
+            "00": {
+                "name": "Defaut",
+                "commands": [
+                    {
+                        "name": "Reset Dongle",
+                        "type": "action",
+						"subtype": "other",
+                        "isVisible": 1,
+						"logicalId": "*13*22*##",
+						"eventOnly": 1,
+						"configuration": {
+							"unit": "0",
+							"where": "Unicast"
+                        }
+					},
+					{
+                        "name": "Create Network",
+                        "type": "action",
+						"subtype": "other",
+                        "isVisible": 1,
+						"logicalId": "*13*30*##",
+						"eventOnly": 1,
+						"configuration": {
+							"unit": "0",
+							"where": "Unicast"
+                        }
+					},
+					{
+                        "name": "Close Network",
+                        "type": "action",
+						"subtype": "other",
+                        "isVisible": 1,
+						"logicalId": "*13*31*##",
+						"eventOnly": 1,
+						"configuration": {
+							"unit": "0",
+							"where": "Unicast"
+                        }
+					},
+					{
+                        "name": "Open Network",
+                        "type": "action",
+						"subtype": "other",
+                        "isVisible": 1,
+						"logicalId": "*13*32*##",
+						"eventOnly": 1,
+						"configuration": {
+							"unit": "0",
+							"where": "Unicast"
+                        }
+					},
+					{
+                        "name": "Join Network",
+                        "type": "action",
+						"subtype": "other",
+                        "isVisible": 1,
+						"logicalId": "*13*33*##",
+						"eventOnly": 1,
+						"configuration": {
+							"unit": "0",
+							"where": "Unicast"
+                        }
+					},
+					{
+                        "name": "Leave Network",
+                        "type": "action",
+						"subtype": "other",
+                        "isVisible": 1,
+						"logicalId": "*13*34*##",
+						"eventOnly": 1,
+						"configuration": {
+							"unit": "0",
+							"where": "Unicast"
+                        }
+					},
+					{
+                        "name": "Keep Connect",
+                        "type": "action",
+						"subtype": "other",
+                        "isVisible": 1,
+						"logicalId": "*13*60*##",
+						"eventOnly": 1,
+						"configuration": {
+							"unit": "0",
+							"where": "Unicast"
+                        }
+					},
+					{
+                        "name": "Scan",
+                        "type": "action",
+						"subtype": "other",
+                        "isVisible": 1,
+						"logicalId": "*13*65*##",
+						"eventOnly": 1,
+						"configuration": {
+							"unit": "0",
+							"where": "Unicast"
+                        }
+					},
+					{
+                        "name": "Supervisor",
+                        "type": "action",
+						"subtype": "other",
+                        "isVisible": 1,
+						"logicalId": "*13*66*##",
+						"eventOnly": 1,
+						"configuration": {
+							"unit": "0",
+							"where": "Unicast"
+                        }
+					},
+					{
+                        "name": "Mac Address",
+                        "type": "action",
+						"subtype": "other",
+                        "isVisible": 1,
+						"logicalId": "*#13**12##",
+						"eventOnly": 1,
+						"configuration": {
+							"unit": "0",
+							"where": "Unicast"
+                        }
+					},
+					{
+                        "name": "Firmware Version",
+                        "type": "action",
+						"subtype": "other",
+                        "isVisible": 1,
+						"logicalId": "*#13*#WHERE##IDUNIT##9*16##*#*1##",
+						"eventOnly": 1,
+						"configuration": {
+							"unit": "0",
+							"where": "Unicast"
+                        }
+					},
+					{
+                        "name": "Hardware Version",
+                        "type": "action",
+						"subtype": "other",
+                        "isVisible": 1,
+						"logicalId": "*#13*#WHERE##IDUNIT##9*17##",
+						"eventOnly": 1,
+						"configuration": {
+							"unit": "0",
+							"where": "Unicast"
+                        }
+					},
+					{
+                        "name": "Who Implemented",
+                        "type": "action",
+						"subtype": "other",
+                        "isVisible": 1,
+						"logicalId": "*#13*#WHERE##IDUNIT##9*26##",
+						"eventOnly": 1,
+						"configuration": {
+							"unit": "0",
+							"where": "Unicast"
+                        }
+					},
+					{
+                        "name": "Product Information",
+                        "type": "action",
+						"subtype": "other",
+                        "isVisible": 1,
+						"logicalId": "*#13**66*#VALUE###",
+						"eventOnly": 1,
+						"configuration": {
+							"unit": "0",
+							"where": "Unicast"
+                        }
+					},
+					{
+                        "name": "Get Number of Network Product",
+                        "type": "action",
+						"subtype": "other",
+                        "isVisible": 1,
+						"logicalId": "*#13**67##",
+						"eventOnly": 1,
+						"configuration": {
+							"unit": "0",
+							"where": "Unicast"
+                        }
+					},
+					{
+                        "name": "Identify",
+                        "type": "action",
+						"subtype": "other",
+                        "isVisible": 1,
+						"logicalId": "*#13*#WHERE##IDUNIT##9*70##",
+						"eventOnly": 1,
+						"configuration": {
+							"unit": "0",
+							"where": "Unicast"
+                        }
+					},
+					{
+                        "name": "Zigbee Channel",
+                        "type": "action",
+						"subtype": "other",
+                        "isVisible": 1,
+						"logicalId": "*#13**71##",
+						"eventOnly": 1,
+						"configuration": {
+							"unit": "0",
+							"where": "Unicast"
+                        }
+					}
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,32 @@
+{
+    "plugins\/myhome\/core\/php\/jeemyhome.php": {
+        "Evènement : ": "Event : ",
+        "Clef API non valide, vous n\'êtes pas autorisé à effectuer cette action (jeeZwave)":"Invalid API key, you are not allowed to do this action (jeeZwave)"
+    },
+    "plugins\/myhome/core\/class\/myhome.class.php": {
+        "Lancement du démon MyHome": "Launching of MyHome deamon",
+        "Démon MyHome lancé": "MyHome deamon launched",
+        "Impossible de lancer le démon MyHome": "Not possible to launch MyHome deamon"
+    },
+    "plugins\/myhome\/desktop\/php\/myhome.php": {
+        "Liste équipements MyHome": "List of MyHome devices",
+        "Nom de l'équipement MyHome": "Name of MyHome< device",
+        "ID": "ID",
+        "Equipement": "Device",
+        "Ajouter une commande": "Add command",
+        "Logical ID (info) ou Commande brute (action)": "Logical ID (info) or Raw command (action)",
+        "Paramètres": "Parameters",
+    },
+    "plugins\/myhome\/desktop\/js\/myhome.js": {
+        "Le démon a été correctement arrêté : il se relancera automatiquement dans 1 minute": "The deamon have been correctly stopped : it will be automatically relaunched in 1 minute",
+        "La valeur de la commande vaut par defaut la commande": "The command value is the command by default",
+        "Aucune": "None",
+        "Historiser": "History",
+        "Afficher": "Display",
+        "Evénement": "Event",
+        "Inverser": "Reverse",
+        "Lifetime cache": "Lifetime cache",
+        "Unité": "Unite",
+        "Tester": "Test"
+    }
+}

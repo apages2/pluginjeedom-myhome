@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<info>
+    <id>myhome</id>
+    <name>Myhome</name>
+    <description>Plugin pour utiliser le module Legrand/Bticino Zigbee</description>
+    <icon>fa fa-rebel</icon>
+    <licence>AGPL</licence>
+    <author>Aurélien PAGES</author>
+    <installation>Aucun</installation>
+    <require>2.0</require>
+    <version>1.1</version>
+    <category>automation protocol</category>
+    <allowRemote>1</allowRemote>
+	<hasOwnDeamon>1</hasOwnDeamon>
+	<hasDependency>1</hasDependency>
+</info>
+

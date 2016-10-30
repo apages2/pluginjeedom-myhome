@@ -1,0 +1,36 @@
+<config>
+    <version>1</version>
+
+    <!-- Serial -->
+    <serial_device>#device#</serial_device>
+    <serial_rate>#serial_rate#</serial_rate>
+    <serial_timeout>9</serial_timeout>
+
+    <!-- Daemon -->
+    <daemon_pidfile>#pid_path#</daemon_pidfile>
+
+    <!-- Trigger -->
+    <trigger_url>#trigger_url#</trigger_url>
+    <apikey>#apikey#</apikey>
+    <trigger_timeout>10</trigger_timeout>
+    
+    
+    <!-- Log messages -->
+    <log_msg>#enable_log#</log_msg>
+    <log_msgfile>#log_path#.message</log_msgfile>
+
+   
+    <!-- Logging -->
+    <loglevel>error</loglevel>
+    <logfile>#log_path#.error</logfile>
+
+  
+    <!-- Socket server -->
+    <sockethost>#sockethost#</sockethost>
+    <socketport>#socketport#</socketport>
+
+    <!-- Barometric adjustemnt, only 0x54 -->
+    <barometric>0</barometric>
+
+
+</config>

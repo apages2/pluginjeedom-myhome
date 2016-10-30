@@ -1,0 +1,96 @@
+{
+    "67227": {
+        "name": "Variateur 1 circuit 8-300 W Céliane MyHOME Play ",
+        "configuration": {
+                            "version": "1.1",
+							"update": "Ajout du statut numérique",
+							"nbunit" : "1",
+							"672271": {
+								"ref_legrand": "67227",
+								"family": "LIGHTING",
+								"nom_interne": "ON/OFF",
+								"btn": "Allumer/Eteindre",
+								"unit": "1",
+								"unit_status": "1",
+								"possibility": "COMMAND",
+								"function_code": "49",
+								"unit_code": "1",
+								"server_opt": "NULL",
+								"commentaire": "NULL"
+								}
+                        },
+		"subtype": {
+            "00": {
+                "name": "Defaut",
+                "commands": [
+                    {
+                        "name": "Status",
+                        "type": "info",
+						"subtype": "string",
+                        "isVisible": 1,
+						"isHistorized": 0,
+                        "unite": "",
+						"eventOnly": 1,
+						"logicalId": "status1",	
+						"configuration": {
+                            "returnStateValue": "",
+                            "returnStateTime": "",
+							"unit": "2"
+                        }				
+					},
+					{
+                        "name": "Status Numerique",
+                        "type": "info",
+						"subtype": "numeric",
+                        "isVisible": 0,
+						"isHistorized": 0,
+                        "unite": "",
+						"logicalId": "statusnum1",	
+						"configuration": {
+                            "returnStateValue": "",
+                            "returnStateTime": "",
+							"unit": "2"
+                        },
+						"display": {
+							"generic_type": "LIGHT_STATE"
+						}			
+					},
+					{
+                        "name": "ON",
+                        "type": "action",
+						"subtype": "other",
+                        "isVisible": 1,
+						"logicalId": "*1*1*#WHERE##IDUNIT##9##",
+						"configuration": {
+							"whatdim": {
+								"what": "1",
+								"dim": "NULL",
+								"nom": "On"
+							},
+							"unit": "2",
+							"where": "Unicast"
+                        },
+						"display": {
+							"generic_type": "LIGHT_ON"
+						}
+                    },
+                   {
+                        "name": "OFF",
+                        "type": "action",
+						"subtype": "other",
+                        "isVisible": 1,
+						"logicalId": "*1*0*#WHERE##IDUNIT##9##",
+						"eventOnly": 1,
+						"configuration": {
+							"unit": "1",
+							"where": "Unicast"
+                        },
+						"display": {
+							"generic_type": "LIGHT_OFF"
+						}
+					}
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,6 @@
+<xml>
+    <trigger>
+        <message>..00</message>
+        <action>curl -L -s "#ip_master#/plugins/myhome/core/php/jeemyhome.php?apikey=#apikey#&amp;trame=$trame$"</action>
+    </trigger>
+</xml>

@@ -1,0 +1,77 @@
+{
+	"Scenario": {
+		"name": "Commande de scenario",
+		"configuration": {
+			"version": "1.0",
+			"update": "Ajout Generic Type + release et versionning"
+		},
+		"subtype": {
+			"00": {
+				"name": "Defaut",
+				"commands": [{
+					"name": "Scenario X",
+					"type": "action",
+					"subtype": "other",
+					"isVisible": 1,
+					"logicalId": "*0*#SCENARIO#*##",
+					"eventOnly": 1,
+					"configuration": {
+						"unit": "0",
+						"where": "Unicast"
+					},
+					"display": {
+						"generic_type": "MODE_SET_STATE"
+					}
+				},
+				{
+					"name": "Start Recording Scenario X",
+					"type": "action",
+					"subtype": "other",
+					"isVisible": 1,
+					"logicalId": "*0*40##SCENARIO#*##",
+					"eventOnly": 1,
+					"configuration": {
+						"unit": "0",
+						"where": "Unicast"
+					}
+				},
+				{
+					"name": "End Recording Scenario X",
+					"type": "action",
+					"subtype": "other",
+					"isVisible": 1,
+					"logicalId": "*0*41##SCENARIO#*##",
+					"eventOnly": 1,
+					"configuration": {
+						"unit": "0",
+						"where": "Unicast"
+					}
+				},
+				{
+					"name": "Delete all scenarios",
+					"type": "action",
+					"subtype": "other",
+					"isVisible": 1,
+					"logicalId": "*0*42**##",
+					"eventOnly": 1,
+					"configuration": {
+						"unit": "0",
+						"where": "Unicast"
+					}
+				},
+				{
+					"name": "Delete scenario X",
+					"type": "action",
+					"subtype": "other",
+					"isVisible": 1,
+					"logicalId": "*0*42##SCENARIO#*##",
+					"eventOnly": 1,
+					"configuration": {
+						"unit": "1",
+						"where": "Unicast"
+					}
+				}]
+			}
+		}
+	}
+}

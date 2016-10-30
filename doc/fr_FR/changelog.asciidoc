@@ -1,0 +1,14 @@
+==== V1.000 du 21/06/2016 23:43
+Version initiale
+
+==== V1.100 du 
+Ajout de la gestion des Shutters
+*Ajout du template Shutter
+*Modification des templates pour intégrer les generic_type (necessaire à l'appli mobile)
+*Ajout d'une fonction pour mettre à jour les templates via github sans pousser une nouvelle release de boxio
+*Modification de l'affichage de l'equipement pour connaitre la version installée/disponible du template, ainsi qu'une courte description des changements de celle-ci
+*Rajout de la possibilité de lier une commande action a une commande info (necessaire a l'appli mobile)
+*Ajout du mode inclusion (detection auto des modules) dans le plugin (vs config)
+Correction du demarrage du daemon en mode debug
+
+
