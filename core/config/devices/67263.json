@@ -2,8 +2,8 @@
 	"67263" : {
 		"name" : "Inter Volet",
 		"configuration" : {
-			"version" : "1.1",
-			"update" : "Ajout du statut numérique",
+			"version" : "1.2",
+			"update" : "modif Unit_Code",
 			"nbunit" : "1",
 			"672631" : {
 				"ref_legrand" : "67263",
@@ -14,7 +14,7 @@
 				"unit_status" : "1",
 				"possibility" : "COMMAND",
 				"function_code" : "50",
-				"unit_code" : "1",
+				"unit_code" : "139",
 				"server_opt" : "NULL",
 				"commentaire" : "COMMAND=Mouvement volet"
 			}
@@ -62,11 +62,6 @@
 						"isVisible" : 1,
 						"logicalId" : "*#WHO#*1*#WHERE##IDUNIT##MEDIA###",
 						"configuration" : {
-							"whatdim" : {
-								"what" : "2",
-								"dim" : "NULL",
-								"nom" : "Move_Up"
-							},
 							"unit" : "1",
 							"where" : "Unicast"
 						},
@@ -81,11 +76,6 @@
 						"isVisible" : 1,
 						"logicalId" : "*#WHO#*2*#WHERE##IDUNIT##MEDIA###",
 						"configuration" : {
-							"whatdim" : {
-								"what" : "1",
-								"dim" : "NULL",
-								"nom" : "Move_Down"
-							},
 							"unit" : "1",
 							"where" : "Unicast"
 						},
@@ -100,11 +90,6 @@
 						"isVisible" : 1,
 						"logicalId" : "*#WHO#*0*#WHERE##IDUNIT##MEDIA###",
 						"configuration" : {
-							"whatdim" : {
-								"what" : "0",
-								"dim" : "NULL",
-								"nom" : "Move_Stop"
-							},
 							"unit" : "1",
 							"where" : "Unicast"
 						},
