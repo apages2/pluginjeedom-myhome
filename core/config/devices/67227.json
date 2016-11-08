@@ -2,8 +2,8 @@
     "67227": {
         "name": "Variateur 1 circuit 8-300 W Céliane MyHOME Play ",
         "configuration": {
-                            "version": "1.1",
-							"update": "Ajout du statut numérique",
+                            "version": "1.2",
+							"update": "Modification unit + Variation",
 							"nbunit" : "1",
 							"672271": {
 								"ref_legrand": "67227",

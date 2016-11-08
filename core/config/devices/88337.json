@@ -2,8 +2,8 @@
     "88337": {
         "name": "Prise mobile 1 circuit 2500 W MyHOME Play",
         "configuration": {
-                            "version": "1.1",
-							"update": "Ajout du statut numérique",
+                            "version": "1.2",
+							"update": "Modif des unit",
 							"nbunit" : "1",
 							"883371": {
 								"ref_legrand": "88337",
@@ -62,12 +62,7 @@
                         "isVisible": 1,
 						"logicalId": "*1*1*#WHERE##IDUNIT##9##",
 						"configuration": {
-							"whatdim": {
-								"what": "1",
-								"dim": "NULL",
-								"nom": "On"
-							},
-							"unit": "2",
+							"unit": "1",
 							"where": "Unicast"
                         },
 						"display": {
