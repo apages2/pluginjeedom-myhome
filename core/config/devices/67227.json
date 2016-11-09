@@ -1,6 +1,6 @@
 {
     "67227": {
-        "name": "Variateur 1 circuit 8-300 W Céliane MyHOME Play ",
+        "name": "Variateur 1 circuit 8-300 W Céliane MyHOME Play",
         "configuration": {
                             "version": "1.2",
 							"update": "Modification unit + Variation",
@@ -17,7 +17,7 @@
 								"unit_code": "143",
 								"server_opt": "NULL",
 								"commentaire": "NULL"
-								}
+							}
                         },
 		"subtype": {
             "00": {
@@ -62,11 +62,6 @@
                         "isVisible": 1,
 						"logicalId": "*1*1*#WHERE##IDUNIT##9##",
 						"configuration": {
-							"whatdim": {
-								"what": "1",
-								"dim": "NULL",
-								"nom": "On"
-							},
 							"unit": "1",
 							"where": "Unicast"
                         },
@@ -90,7 +85,7 @@
 						}
 					},
 					{
-                        "name": "Variation,
+                        "name": "Variation",
                         "type": "action",
 						"subtype": "slider",
                         "isVisible": 1,
