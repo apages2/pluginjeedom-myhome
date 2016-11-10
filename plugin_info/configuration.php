@@ -44,7 +44,7 @@ if (!isConnect()) {
 			<div class="form-group">
 				<label class="col-lg-4 control-label">{{Options avancées}}</label>
 				<div class="col-lg-3">
-					<a class="btn btn-success" id="bt_syncconfigBoxio"><i class="fa fa-refresh"></i> {{Update Templates Modules}}</a>
+					<a class="btn btn-success" id="bt_syncconfigMyhome"><i class="fa fa-refresh"></i> {{Update Templates Modules}}</a>
 				</div>
 			</div>
 		<legend>{{Démon local}}</legend>

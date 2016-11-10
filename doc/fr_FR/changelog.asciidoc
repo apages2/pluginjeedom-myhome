@@ -11,4 +11,7 @@ Rajout de la possibilité de lier une commande action a une commande info (neces
 Ajout du mode inclusion (detection auto des modules) dans le plugin (vs config)
 Correction du demarrage du daemon en mode debug
 
+==== V1.101 du 
+Correction d'un bug sur l'update des templates
+
 
