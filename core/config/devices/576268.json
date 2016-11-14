@@ -2,22 +2,9 @@
     "576268": {
         "name": "Récepteur lumière pour faux plafond MyHOME Play",
         "configuration": {
-                            "version": "1.0",
-							"update": "Creation",
-							"nbunit" : "1",
-							"5762681": {
-								"ref_legrand": "576268",
-								"family": "LIGHTING",
-								"nom_interne": "ON/OFF",
-								"btn": "Allumer/Eteindre",
-								"unit": "1",
-								"unit_status": "1",
-								"possibility": "COMMAND",
-								"function_code": "55",
-								"unit_code": "129",
-								"server_opt": "NULL",
-								"commentaire": "NULL"
-								}
+                            "version": "1.1",
+							"update": "Correction status",
+							"nbunit" : "1"
                         },
 		"subtype": {
             "00": {
@@ -31,7 +18,7 @@
 						"isHistorized": 0,
                         "unite": "",
 						"eventOnly": 1,
-						"logicalId": "status1",	
+						"logicalId": "status01",	
 						"configuration": {
                             "returnStateValue": "",
                             "returnStateTime": "",
@@ -45,7 +32,7 @@
                         "isVisible": 0,
 						"isHistorized": 0,
                         "unite": "",
-						"logicalId": "statusnum1",	
+						"logicalId": "statusnum01",	
 						"configuration": {
                             "returnStateValue": "",
                             "returnStateTime": "",

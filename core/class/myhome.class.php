@@ -130,7 +130,7 @@ class myhome extends eqLogic {
 			throw new Exception(__('Impossible de créer : ', __FILE__) . '/tmp/config_myhome.xml');
 		}
 		$cmd = '/usr/bin/python ' . $myhome_path . '/myhomecmd.py -l -o /tmp/config_myhome.xml';
-		if (log::getLogLevel('boxio')=='100') {
+		if (log::getLogLevel('myhome')=='100') {
 			$cmd .= ' -D';
 		}
 		log::add('myhomecmd', 'info', 'Lancement démon myhomecmd : ' . $cmd);
@@ -504,7 +504,7 @@ class myhome extends eqLogic {
 		$statusid = "status".$unit;
 		$myhomecmd = $myhome->getCmd('info', $statusid);
 		$statusidnum = "statusnum".$unit;
-		$myhomecmdnum = $boxio->getCmd('info', $statusidnum);
+		$myhomecmdnum = $myhome->getCmd('info', $statusidnum);
 		$status = NULL;
 		$statusnum = NULL;
 		log::add('myhome','debug',"statusid : ".$statusid." date : ".$date);
@@ -555,20 +555,17 @@ class myhome extends eqLogic {
 		//Creation des variables utiles
 		$myhome = myhome::byLogicalId($decrypted_trame["id"], 'myhome');
 		$unit = $decrypted_trame["unit"];
-		$device_type = explode('::', $myhome->getConfiguration('device'));
-		$ref_id_legrand = $device_type[0].$unit;
 		//On recupere la date de l'action et on ajoute le temps du relais interne
 		$date = strtotime($decrypted_trame["date"]);
 		//recuperation du derniere etat connu ET des possibilites
-		$config = $myhome->getConfiguration($ref_id_legrand);
 		$statusid = 'status'.$unit;
 		$myhomecmd = $myhome->getCmd('info', $statusid);
 		$duree_cmd	= $myhomecmd->getConfiguration('DureeCmd');
 		$last_status = $myhomecmd->execCmd(null,2);
 		$statusidnum = 'statusnum'.$unit;
-		$boxiocmdnum = $boxio->getCmd('info', $statusidnum);
-		$updatedate=$boxiocmd->getConfiguration('updatedate');
-		log::add('myhome','debug','unit_status : '.$unit_status.' last : '.$last_status.' duréecmd : '.$duree_cmd.' id cmd : '.$myhomecmd->getId() . " date : ".$date);
+		$myhomecmdnum = $myhome->getCmd('info', $statusidnum);
+		$updatedate=$myhomecmd->getConfiguration('updatedate');
+		log::add('myhome','debug',' last : '.$last_status.' duréecmd : '.$duree_cmd.' id cmd : '.$myhomecmd->getId() . " date : ".$date);
 		//on test s'il faut faire un update des statuts
 		if ($decrypted_trame["value"] == 'MOVE_UP'
 				|| $decrypted_trame["value"] == 'MOVE_DOWN'
@@ -598,12 +595,12 @@ class myhome extends eqLogic {
 					if ($new_pos >= 100) {
 							$status = 'OPEN';
 							$statusnum = 100;
-							$boxiocmd->setConfiguration('updatedate',NULL);
-							$boxiocmd->setConfiguration('returnStateValue',NULL);
-							$boxiocmd->setConfiguration('returnStateTime',NULL);
-							$boxiocmdnum->setConfiguration('updatedate',NULL);
-							$boxiocmdnum->setConfiguration('returnStateValue',NULL);
-							$boxiocmdnum->setConfiguration('returnStateTime',NULL);
+							$myhomecmd->setConfiguration('updatedate',NULL);
+							$myhomecmd->setConfiguration('returnStateValue',NULL);
+							$myhomecmd->setConfiguration('returnStateTime',NULL);
+							$myhomecmdnum->setConfiguration('updatedate',NULL);
+							$myhomecmdnum->setConfiguration('returnStateValue',NULL);
+							$myhomecmdnum->setConfiguration('returnStateTime',NULL);
 					}
 				//Si le volet est deja en haut
 				} 
@@ -618,12 +615,12 @@ class myhome extends eqLogic {
 					$statusnum = round(100-$new_pos);
 					if ((100-$new_pos) <= 0) {
 							$statusnum = 0;
-							$boxiocmd->setConfiguration('updatedate',NULL);
-							$boxiocmd->setConfiguration('returnStateValue',NULL);
-							$boxiocmd->setConfiguration('returnStateTime',NULL);
-							$boxiocmdnum->setConfiguration('updatedate',NULL);
-							$boxiocmdnum->setConfiguration('returnStateValue',NULL);
-							$boxiocmdnum->setConfiguration('returnStateTime',NULL);
+							$myhomecmd->setConfiguration('updatedate',NULL);
+							$myhomecmd->setConfiguration('returnStateValue',NULL);
+							$myhomecmd->setConfiguration('returnStateTime',NULL);
+							$myhomecmdnum->setConfiguration('updatedate',NULL);
+							$myhomecmdnum->setConfiguration('returnStateValue',NULL);
+							$myhomecmdnum->setConfiguration('returnStateTime',NULL);
 					}
 					$sec=date("s");
 					if ($updatedate<$date)
@@ -680,12 +677,12 @@ class myhome extends eqLogic {
 					if ((100-$new_pos) <= 0) {
 							$status = 'CLOSED';
 							$statusnum = 0;
-							$boxiocmd->setConfiguration('updatedate',NULL);
-							$boxiocmd->setConfiguration('returnStateValue',NULL);
-							$boxiocmd->setConfiguration('returnStateTime',NULL);
-							$boxiocmdnum->setConfiguration('updatedate',NULL);
-							$boxiocmdnum->setConfiguration('returnStateValue',NULL);
-							$boxiocmdnum->setConfiguration('returnStateTime',NULL);
+							$myhomecmd->setConfiguration('updatedate',NULL);
+							$myhomecmd->setConfiguration('returnStateValue',NULL);
+							$myhomecmd->setConfiguration('returnStateTime',NULL);
+							$myhomecmdnum->setConfiguration('updatedate',NULL);
+							$myhomecmdnum->setConfiguration('returnStateValue',NULL);
+							$myhomecmdnum->setConfiguration('returnStateTime',NULL);
 					}
 					//Si le volet est deja en bas
 				} 
@@ -700,12 +697,12 @@ class myhome extends eqLogic {
 					$statusnum = round($new_pos);
 					if (($new_pos) >= 100) {
 							$statusnum = 100;
-							$boxiocmd->setConfiguration('updatedate',NULL);
-							$boxiocmd->setConfiguration('returnStateValue',NULL);
-							$boxiocmd->setConfiguration('returnStateTime',NULL);
-							$boxiocmdnum->setConfiguration('updatedate',NULL);
-							$boxiocmdnum->setConfiguration('returnStateValue',NULL);
-							$boxiocmdnum->setConfiguration('returnStateTime',NULL);
+							$myhomecmd->setConfiguration('updatedate',NULL);
+							$myhomecmd->setConfiguration('returnStateValue',NULL);
+							$myhomecmd->setConfiguration('returnStateTime',NULL);
+							$myhomecmdnum->setConfiguration('updatedate',NULL);
+							$myhomecmdnum->setConfiguration('returnStateValue',NULL);
+							$myhomecmdnum->setConfiguration('returnStateTime',NULL);
 					}
 					$sec=date("s");
 					$updatedate=$myhomecmd->getConfiguration('updatedate');
@@ -770,26 +767,40 @@ class myhome extends eqLogic {
 						$status = round($new_pos);
 						$statusnum = round($new_pos);
 						log::add('myhome', 'debug', "last_status : Up, status : ".$status);
+						$myhomecmd->setConfiguration('returnStateValue',$status);
+						$myhomecmd->setConfiguration('returnStateTime',1);
+						$myhomecmdnum->setConfiguration('returnStateValue',$statusnum);
+						$myhomecmdnum->setConfiguration('returnStateTime',1);
 					} 
 					elseif ($last_status == 'DOWN') {
 						$status = round(100 - $new_pos);
 						$statusnum = round(100 - $new_pos);
 						log::add('myhome', 'debug', "last_status : Down, status : ".$status);
+						$myhomecmd->setConfiguration('returnStateValue',$status);
+						$myhomecmd->setConfiguration('returnStateTime',1);
+						$myhomecmdnum->setConfiguration('returnStateValue',$statusnum);
+						$myhomecmdnum->setConfiguration('returnStateTime',1);
 					}
 					if ($status <= 0) {
 						$status = 'CLOSED';
 						$statusnum = 0;
+						$myhomecmd->setConfiguration('updatedate',NULL);
+						$myhomecmd->setConfiguration('returnStateValue',NULL);
+						$myhomecmd->setConfiguration('returnStateTime',NULL);
+						$myhomecmdnum->setConfiguration('updatedate',NULL);
+						$myhomecmdnum->setConfiguration('returnStateValue',NULL);
+						$myhomecmdnum->setConfiguration('returnStateTime',NULL);
 					} 
 					elseif ($status >= 100) {
 						$status = 'OPEN';
 						$statusnum = 100;
+						$myhomecmd->setConfiguration('updatedate',NULL);
+						$myhomecmd->setConfiguration('returnStateValue',NULL);
+						$myhomecmd->setConfiguration('returnStateTime',NULL);
+						$myhomecmdnum->setConfiguration('updatedate',NULL);
+						$myhomecmdnum->setConfiguration('returnStateValue',NULL);
+						$myhomecmdnum->setConfiguration('returnStateTime',NULL);
 					}
-					$myhomecmd->setConfiguration('updatedate',NULL);
-					$myhomecmd->setConfiguration('returnStateValue',NULL);
-					$myhomecmd->setConfiguration('returnStateTime',NULL);
-					$myhomecmdnum->setConfiguration('updatedate',NULL);
-					$myhomecmdnum->setConfiguration('returnStateValue',NULL);
-					$myhomecmdnum->setConfiguration('returnStateTime',NULL);
 				} 
 				else {
 					$status = 'OPEN';
@@ -1132,7 +1143,7 @@ class myhome_def {
 	//Definition des differents type de contenu d'une trame
 	public $OWN_TRAME_DEFINITION = array(
 			"0" => array(
-				"TYPE" => "SCENE",
+				"TYPE" => "scene",
 				"1" => "EXECUTE_SCENARIO_1",
 				"2" => "EXECUTE_SCENARIO_2",
 				"3" => "EXECUTE_SCENARIO_3",
@@ -1192,6 +1203,15 @@ class myhome_def {
 					"1_" => "GET_SET_DIMMMING_AND_SPEED"
 				)
 			), //1 light
+			"2" => array(
+				"TYPE" => "automatism",
+				"12" => "DOWN_ADVANCED",
+				"11" => "UP_ADVANCED",
+				"10" => "STOP_ADVANCED",
+				"2" => "MOVE_DOWN",
+				"1" => "MOVE_UP",
+				"0" => "MOVE_STOP"
+			), //2 shutter
 			"13" => array(
 				"TYPE" => "MANAGEMENT",
 				"22" => "RESET_DEVICE",
