@@ -2,8 +2,8 @@
     "Light": {
         "name": "Commande de lumiere",
 		"configuration": {
-			"version": "1.0",
-			"update": "Ajout Generic Type + release et versionning"
+			"version": "1.1",
+			"update": "Changement logicalId de la commande status"
 		},
         "subtype": {
             "00": {
@@ -17,7 +17,7 @@
 						"isHistorized": 0,
                         "unite": "",
 						"eventOnly": 1,
-						"logicalId": "status1",	
+						"logicalId": "status01",	
 						"configuration": {
                             "returnStateValue": "",
                             "returnStateTime": "",
