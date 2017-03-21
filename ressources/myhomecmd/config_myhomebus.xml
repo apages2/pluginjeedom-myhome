@@ -1,0 +1,25 @@
+<config>
+    <version>1</version>
+
+    <!-- Daemon -->
+    <daemon_pidfile_event>/tmp/myhomebusevent.pid</daemon_pidfile_event>
+    <daemon_pidfile_command>/tmp/myhomebuscommand.pid</daemon_pidfile_command>
+
+    <!-- Trigger -->
+    <trigger_url>http://127.0.0.1:80/plugins/myhome/core/php/jeemyhome.php</trigger_url>
+    <apikey>toto</apikey>
+    <trigger_timeout>10</trigger_timeout>
+    
+    <!-- Log messages -->
+    <log_msg>yes</log_msg>
+    <log_msgfile>/tmp/myhomebuscmd.message</log_msgfile>
+   
+    <!-- F454 -->
+    <f454host>192.168.10.44</f454host>
+    <f454port>20000</f454port>
+
+    <!-- Logging -->
+    <loglevel>debug</loglevel>
+    <logfile>/tmp/myhomebuscmd.error</logfile>
+
+</config>
