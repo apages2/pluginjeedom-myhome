@@ -22,8 +22,8 @@ Mise en place de l'autodetection du port USB utilisé pour l'interface 3578/0883
 Ajout de la trame de management *13*66*## (trame de supervision) a chaque démarrage du daemon 
 Ajout de la fonctionnalité Volet Inversé
 Doc
-Commande
-Bootstrap
+==== ToDo
+log/debug
 jeelink
 
 

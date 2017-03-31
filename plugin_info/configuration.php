@@ -29,7 +29,7 @@ if (!isConnect()) {
         <div class="form-group">
 				<label class="col-lg-4 control-label">{{Mettre à jour les templates des modules automatiquement}}</label>
 				<div class="col-lg-3">
-					<input type="checkbox" class="configKey bootstrapSwitch" data-l1key="auto_updateConf"/>
+					<input type="checkbox" class="configKey" data-l1key="auto_updateConf"/>
 				</div>
 			</div>
 		<div class="form-group">
@@ -68,7 +68,7 @@ if (!isConnect()) {
             <div class="form-group">
                <label class="col-sm-4 control-label">{{Enregistrer tous les messages (cela peut ralentir le système)}}</label>
                <div class="col-sm-1">
-                <input type="checkbox" class="configKey bootstrapSwitch" data-l1key="enableLogging" />
+                <input type="checkbox" class="configKey" data-l1key="enableLogging" />
             </div>
             <div class="col-sm-7">
                 <a class="btn btn-default" id="bt_logMyhomeMessage"><i class="fa fa-file-o"></i> {{Voir les messages}}</a>
@@ -117,7 +117,7 @@ foreach ($jeeNetwork->sendRawRequest('jeedom::getUsbMapping') as $name => $value
              <div class="form-group">
                <label class="col-lg-4 control-label">{{Enregistrer tous les messages, cela peut ralentir le système}}</label>
                <div class="col-lg-1">
-                <input type="checkbox" class="slaveConfigKey bootstrapSwitch" data-l1key="enableLogging" />
+                <input type="checkbox" class="slaveConfigKey" data-l1key="enableLogging" />
             </div>
             <div class="col-lg-7">
                 <a class="btn btn-default bt_logMyhomeMessage"><i class="fa fa-file-o"></i> {{Voir les messages}}</a>
