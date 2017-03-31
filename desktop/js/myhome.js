@@ -52,6 +52,9 @@ function printEqLogic(_id) {
 				$('#div_DashboardAlert').showAlert({message: data_init.result, level: 'danger'});
 				return;
 			}else{
+				document.getElementById("iddec").innerHTML = data_init.result['iddec'];
+				document.getElementById("iddec").readOnly = true;
+				document.getElementById("iddec").style.backgroundColor  = "#dedede";
 				$('#vdispo').append(data_init.result['version']);
 				$('#rnotes').append(data_init.result['update']);
 				if (data_init.result['versioninst'] < data_init.result['version']) {

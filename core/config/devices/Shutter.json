@@ -2,8 +2,8 @@
 	"Shutter": {
 		"name": "Commande de Volet Roulant",
 		"configuration": {
-			"version": "1.0",
-			"update": "Ajout Generic Type + release et versionning"
+			"version": "1.4",
+			"update": "Ajout de la fonction inversé"
 		},
 		"subtype": {
 			"00": {
@@ -17,7 +17,7 @@
 						"isHistorized": 0,
                         "unite": "",
 						"eventOnly": 1,
-						"logicalId": "status1",	
+						"logicalId": "status01",	
 						"configuration": {
                             "returnStateValue": "",
                             "returnStateTime": "",
@@ -27,6 +27,23 @@
 							"generic_type": "FLAP_STATE"
 						}				
 					},
+					{
+						"name" : "Status Numerique",
+						"type" : "info",
+						"subtype" : "numeric",
+						"isVisible" : 0,
+						"isHistorized" : 0,
+						"unite" : "",
+						"logicalId" : "statusnum01",
+						"configuration" : {
+							"returnStateValue" : "",
+							"returnStateTime" : "",
+							"unit" : "1"
+						},
+						"display" : {
+							"generic_type" : "FLAP_STATE"
+						}
+					}, 
 					{
                         "name": "Ouvrir",
                         "type": "action",
@@ -85,7 +102,103 @@
 						}
                     }
 				]
-			}
+			},
+			"01": {
+                "name": "Inversé",
+                "commands": [
+                    {
+                        "name": "Status",
+                        "type": "info",
+						"subtype": "string",
+                        "isVisible": 1,
+						"isHistorized": 0,
+                        "unite": "",
+						"eventOnly": 1,
+						"logicalId": "status01",	
+						"configuration": {
+                            "returnStateValue": "",
+                            "returnStateTime": "",
+							"unit": "1"
+                        }				
+					},
+					{
+						"name" : "Status Numerique",
+						"type" : "info",
+						"subtype" : "numeric",
+						"isVisible" : 0,
+						"isHistorized" : 0,
+						"unite" : "",
+						"logicalId" : "statusnum01",
+						"configuration" : {
+							"returnStateValue" : "",
+							"returnStateTime" : "",
+							"unit" : "1"
+						},
+						"display" : {
+							"generic_type" : "FLAP_STATE"
+						}
+					}, 
+					{
+                        "name": "Status Numerique",
+                        "type": "info",
+						"subtype": "numeric",
+                        "isVisible": 0,
+						"isHistorized": 0,
+                        "unite": "",
+						"logicalId": "statusnum01",	
+						"configuration": {
+                            "returnStateValue": "",
+                            "returnStateTime": "",
+							"unit": "1"
+                        },
+						"display": {
+							"generic_type": "FLAP_STATE"
+						}					
+					},					
+					{
+                        "name": "Ouvrir",
+                        "type": "action",
+						"subtype": "other",
+                        "isVisible": 1,
+						"logicalId": "*#WHO#*2*#WHERE##IDUNIT##MEDIA###",
+						"configuration": {
+							"unit": "1",
+							"where": "Unicast"
+                        },
+						"display": {
+							"generic_type": "FLAP_UP"
+						}
+                    },
+                    {
+                        "name": "Fermer",
+                        "type": "action",
+						"subtype": "other",
+                        "isVisible": 1,
+						"logicalId": "*#WHO#*1*#WHERE##IDUNIT##MEDIA###",
+						"configuration": {
+							"unit": "1",
+							"where": "Unicast"
+						},
+						"display": {
+							"generic_type": "FLAP_DOWN"
+						}
+					},	
+                    {
+                        "name": "Stop",
+                        "type": "action",
+						"subtype": "other",
+                        "isVisible": 1,
+						"logicalId": "*#WHO#*0*#WHERE##IDUNIT##MEDIA###",
+						"configuration": {
+							"unit": "1",
+							"where": "Unicast"
+						},
+						"display": {
+							"generic_type": "FLAP_STOP"
+						}
+                    }
+                ]
+            }
 		}
 	}
 }

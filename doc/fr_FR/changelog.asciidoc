@@ -16,4 +16,14 @@ Correction d'un bug sur l'update des templates
 Correction de problemes sur la mise a jour des status
 Correction de la fonction update_shutter
 
+==== V1.102 du 
+Changement du format de l'ID (Hexadecimal vs Decimal)
+Mise en place de l'autodetection du port USB utilisé pour l'interface 3578/088328
+Ajout de la trame de management *13*66*## (trame de supervision) a chaque démarrage du daemon 
+Ajout de la fonctionnalité Volet Inversé
+Doc
+Commande
+Bootstrap
+jeelink
+
 

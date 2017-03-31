@@ -95,13 +95,16 @@ if (config::byKey('autoDiscoverEqLogic', 'myhome', 0) == 1) {
                             <label class="col-sm-3 control-label">Nom de l'équipement Myhome</label>
                             <div class="col-sm-4">
                                 <input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" />
-								<input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="Nom de l'équipement Myhome"/>
+								<input type="text" class="eqLogicAttr form-control" data-l1key="name" style="padding-left:12px" placeholder="Nom de l'équipement Myhome"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">ID</label>
-                            <div class="col-sm-4">
-                                <input type="text" id="myhomeid" class="eqLogicAttr form-control" data-l1key="logicalId" placeholder="Logical ID"/>
+                            <label class="col-sm-3 control-label">ID (HEXA/DECIMAL)</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="myhomeid" class="eqLogicAttr form-control" data-l1key="logicalId" style="padding-left:12px" placeholder="Logical ID" />
+							</div>
+							<div class="col-sm-2">
+								<span id="iddec" class="eqLogicAttr form-control" style="font-size:13px"></span>
                             </div>
                         </div>
 						<div class="form-group">

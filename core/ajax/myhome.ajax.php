@@ -32,6 +32,7 @@ try {
 	if (init('action') == 'checktemplate') {
 		$myhome = myhome::byLogicalId(init('id'), 'myhome');
         if (is_object($myhome)) {
+			$result['iddec'] = hexdec(init('id'));
             $result['versioninst'] = $myhome->getConfiguration('version');
 			$device_type = explode('::', $myhome->getConfiguration('applyDevice'));
 			$deviceref = $device_type[0];
