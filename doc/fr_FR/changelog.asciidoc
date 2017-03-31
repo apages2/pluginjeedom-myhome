@@ -21,9 +21,13 @@ Changement du format de l'ID (Hexadecimal vs Decimal)
 Mise en place de l'autodetection du port USB utilisé pour l'interface 3578/088328
 Ajout de la trame de management *13*66*## (trame de supervision) a chaque démarrage du daemon 
 Ajout de la fonctionnalité Volet Inversé
-Doc
+Gestion des onglets dans l'équipement MyHome (Equipement/Commande)
+Ajout de la fonction dupliquer un équipement
+Suppression des bootstraps
+
 ==== ToDo
 log/debug
 jeelink
+Health
 
 

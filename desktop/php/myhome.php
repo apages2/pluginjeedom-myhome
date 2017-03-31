@@ -63,6 +63,12 @@ if (config::byKey('autoDiscoverEqLogic', 'myhome', 0) == 1) {
 				</center>
 				<span style="font-size : 1.1em;position:relative; top : 23px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#767676"><center>{{Configuration}}</center></span>
 			</div>
+			<div class="cursor" id="bt_healthmyhome" style="background-color : #ffffff; height : 120px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >
+			  <center>
+				<i class="fa fa-medkit" style="font-size : 6em;color:#767676;"></i>
+			  </center>
+			  <span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#767676"><center>{{Santé}}</center></span>
+			</div>
 		</div>
 		
         <legend><i class="fa fa-table"></i>  {{Mes Equipements Myhome}}</legend>
