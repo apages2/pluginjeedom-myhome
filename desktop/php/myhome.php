@@ -186,7 +186,7 @@ if (config::byKey('autoDiscoverEqLogic', 'myhome', 0) == 1) {
 							</div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">{{Equipement}}</label>
+                            <label class="col-sm-3 control-label">{{Template}}</label>
                             <div class="col-sm-9">
                                 <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="device">
                                     <option value="">Aucun</option>
@@ -228,7 +228,7 @@ if (config::byKey('autoDiscoverEqLogic', 'myhome', 0) == 1) {
         <table id="table_cmd" class="table table-bordered table-condensed">
             <thead>
                 <tr>
-                    <th style="width: 300px;">{{Nom</th>
+                    <th style="width: 300px;">{{Nom}}</th>
                     <th style="width: 130px;" class="expertModeVisible">{{Type}}</th>
 					<th style="width: 70px;" class="expertModeVisible">{{Unit}}</th>
 					<th style="width: 130px;" class="expertModeVisible">{{Communication}}</th>
