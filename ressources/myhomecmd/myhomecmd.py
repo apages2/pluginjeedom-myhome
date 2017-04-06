@@ -254,7 +254,7 @@ def read_myhome():
 				buffer = serial_param.port.read()
 				message = message + str(buffer)
 			#logger.debug("Message: " + str(message))
-			#logger.debug("Send trame to Jeedom")
+			#logger.debug("Received trame")
 			prm = message.replace('*', 'Y')
 			prm = prm.replace('#', 'Z')
 			action['trame'] = str(prm)
@@ -264,7 +264,7 @@ def read_myhome():
 				try:
 					file = open(config.log_msgfile,"a+")
 					file.write("---------------------------------\n")
-					file.write(time.strftime("%Y-%m-%d %H:%M:%S")+' Send data to jeedom : => '+message+'\n')
+					file.write(time.strftime("%Y-%m-%d %H:%M:%S")+' Received data : => '+message+'\n')
 					file.close()
 				except Exception, e:
 					logger.error("Error when trying to write message log")
@@ -324,7 +324,7 @@ def read_socket():
 				try:
 					file = open(config.log_msgfile,"a+")
 					file.write("---------------------------------\n")
-					file.write(time.strftime("%Y-%m-%d %H:%M:%S")+' Received data from jeedom : => '+message+'\n')
+					file.write(time.strftime("%Y-%m-%d %H:%M:%S")+' Send data : => '+message+'\n')
 					file.close()
 				except Exception, e:
 					logger.error("Error when trying to write message log")
