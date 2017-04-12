@@ -508,20 +508,25 @@ class myhome extends eqLogic {
 		$myhomecmdnum = $myhome->getCmd('info', $statusidnum);
 		$status = NULL;
 		$statusnum = NULL;
-		log::add('myhome','debug',"statusid : ".$statusid." date : ".$date);
+		log::add('myhome','debug',"statusid : ".$statusidnum." date : ".$date);
 		
 		//Allumage
 		if ($decrypted_trame["value"] == 'ON') {
 			$status = 'ON';
-			$statusnum = 100;
+			$Lightstatus="*#1*".hexdec($decrypted_trame["id"]).$decrypted_trame["unit"]."#9##";
+			sleep(4);
+			myhome::send_trame($Lightstatus);
 		}
 		//Extinction 
 		else if ($decrypted_trame["value"] == 'OFF') {
 			$status = 'OFF';
 			$statusnum = 0;
+			
 		}
+		
 		else {
-			return;
+			$status = 'ON';
+			$statusnum = $decrypted_trame["value"];
 		}
 		
 		//on n'a pas trouve le nouveau status, erreur dans la trame ?
@@ -529,7 +534,7 @@ class myhome extends eqLogic {
 			return;
 		}
 		
-		log::add('myhome','debug',"mise a jour du status : ".$status."\n");
+		log::add('myhome','debug',"mise a jour du status : ".$statusnum."\n");
 		$myhomecmd->event($status);
 		$myhomecmdnum->event($statusnum);
 		$myhomecmd->save();
@@ -1424,15 +1429,15 @@ class myhome_def {
 				"0" => "OFF",
 				"0#" => "OFF_AT_X_SPEED",
 				"1#" => "OFF_AT_X_SPEED",
-				"2" => "20%",
-				"3" => "30%",
-				"4" => "40%",
-				"5" => "50%",
-				"6" => "60%",
-				"7" => "70%",
-				"8" => "80%",
-				"9" => "90%",
-				"10" => "100%",
+				"2" => "2",
+				"3" => "3",
+				"4" => "4",
+				"5" => "5",
+				"6" => "6",
+				"7" => "7",
+				"8" => "8",
+				"9" => "9",
+				"10" => "10",
 				"DIMENSION" => array(
 					"_" => "LIGHT_STATUS_REQUEST",
 					"1_" => "GET_SET_DIMMMING_AND_SPEED"

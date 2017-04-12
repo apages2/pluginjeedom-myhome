@@ -26,6 +26,10 @@ Ajout de la fonction dupliquer un équipement
 Suppression des bootstraps
 Ajout d'un menu Health
 
+==== V1.103 du 12/04/2017 19:45
+Modification du core du plugin pour gestion du retour d'etat des variateurs
+
+
 ==== ToDo
 log/debug
 jeelink
