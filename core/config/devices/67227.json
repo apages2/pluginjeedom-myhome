@@ -2,9 +2,10 @@
     "67227": {
         "name": "Variateur 1 circuit 8-300 W Céliane MyHOME Play",
         "configuration": {
-                            "version": "1.3",
-							"update": "Correction status",
-							"nbunit" : "1"
+                            "version": "1.4",
+							"update": "Add family",
+							"nbunit" : "1",
+							"family": "DIMMER"
                         },
 		"subtype": {
             "00": {
