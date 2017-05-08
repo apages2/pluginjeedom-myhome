@@ -29,6 +29,8 @@ Ajout d'un menu Health
 ==== V1.103 du 12/04/2017 19:45
 Modification du core du plugin pour gestion du retour d'etat des variateurs
 
+==== V1.104 du 08/05/2017 10:41
+Correction d'un bug sur le retour d'etat des variateurs
 
 ==== ToDo
 log/debug
