@@ -1,0 +1,84 @@
+{
+    "69503": {
+        "name": "Interrupteur récepteur 1 circuit 2500W Plexo MyHOME Play",
+        "configuration": {
+                            "version": "1.0",
+							"update": "Creation",
+							"nbunit" : "1",
+							"family": "LIGHTING"
+                        },
+		"subtype": {
+            "00": {
+                "name": "Defaut",
+                "commands": [
+                    {
+                        "name": "Status",
+                        "type": "info",
+						"subtype": "string",
+                        "isVisible": 1,
+						"isHistorized": 0,
+                        "unite": "",
+						"eventOnly": 1,
+						"logicalId": "status01",	
+						"configuration": {
+                            "returnStateValue": "",
+                            "returnStateTime": "",
+							"unit": "1"
+                        }				
+					},
+					{
+                        "name": "Status Numerique",
+                        "type": "info",
+						"subtype": "numeric",
+                        "isVisible": 0,
+						"isHistorized": 0,
+                        "unite": "",
+						"logicalId": "statusnum01",	
+						"configuration": {
+                            "returnStateValue": "",
+                            "returnStateTime": "",
+							"unit": "1"
+                        },
+						"display": {
+							"generic_type": "LIGHT_STATE"
+						}			
+					},
+					{
+                        "name": "ON",
+                        "type": "action",
+						"subtype": "other",
+                        "isVisible": 1,
+						"logicalId": "*1*1*#WHERE##IDUNIT##9##",
+						"configuration": {
+							"whatdim": {
+								"what": "1",
+								"dim": "NULL",
+								"nom": "On"
+							},
+							"unit": "1",
+							"where": "Unicast"
+                        },
+						"display": {
+							"generic_type": "LIGHT_ON"
+						}
+                    },
+                   {
+                        "name": "OFF",
+                        "type": "action",
+						"subtype": "other",
+                        "isVisible": 1,
+						"logicalId": "*1*0*#WHERE##IDUNIT##9##",
+						"eventOnly": 1,
+						"configuration": {
+							"unit": "1",
+							"where": "Unicast"
+                        },
+						"display": {
+							"generic_type": "LIGHT_OFF"
+						}
+					}
+                ]
+            }
+        }
+    }
+}
