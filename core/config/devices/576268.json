@@ -2,9 +2,10 @@
     "576268": {
         "name": "Récepteur lumière pour faux plafond MyHOME Play",
         "configuration": {
-                            "version": "1.1",
-							"update": "Correction status",
-							"nbunit" : "1"
+                            "version": "1.2",
+							"update": "Add Family",
+							"nbunit" : "1",
+							"family": "LIGHTING"
                         },
 		"subtype": {
             "00": {

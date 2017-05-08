@@ -2,8 +2,9 @@
     "88306": {
         "name": "Inter micromodule 1 circuit ON/OFF 300 W MyHOME Play - avec neutre",
 		"configuration": {
-			"version": "1.0",
-			"update": "Création"
+			"version": "1.1",
+			"update": "Add Family",
+			"family": "LIGHTING"
 		},
         "subtype": {
             "00": {

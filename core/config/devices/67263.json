@@ -2,8 +2,9 @@
 	"67263" : {
 		"name" : "Inter Volet",
 		"configuration" : {
-			"version" : "1.4",
-			"update" : "Ajout de la fonction inversé",
+			"version" : "1.5",
+			"update": "Add Family",
+			"family": "SHUTTER",
 			"nbunit" : "1"
 		},
 		"subtype" : {

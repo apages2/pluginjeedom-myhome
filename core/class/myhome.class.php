@@ -498,7 +498,7 @@ class myhome extends eqLogic {
 		$def = new myhome_def();
 		//Creation des variables utiles
 		$myhome = myhome::byLogicalId($decrypted_trame["id"], 'myhome');
-		$family=$myhome->getConfiguration('family')
+		$family = $myhome->getConfiguration('family');
 		$unit = $decrypted_trame["unit"];
 		//On recupere la date de l'action
 		$date = strtotime($decrypted_trame["date"]);
@@ -509,12 +509,12 @@ class myhome extends eqLogic {
 		$myhomecmdnum = $myhome->getCmd('info', $statusidnum);
 		$status = NULL;
 		$statusnum = NULL;
-		log::add('myhome','debug',"statusid : ".$statusidnum." date : ".$date);
+		log::add('myhome','debug',"statusid : ".$statusidnum." date : ".$date." family : ".$family);
 		
 		//Allumage
 		if ($decrypted_trame["value"] == 'ON') {
 			$status = 'ON';
-			if ($family = 'DIMMER') {
+			if ($family == 'DIMMER') {
 				log::add('myhome','debug',"family type = DIMMER, Check Light Status");
 				$Lightstatus="*#1*".hexdec($decrypted_trame["id"]).$decrypted_trame["unit"]."#9##";
 				sleep(4);

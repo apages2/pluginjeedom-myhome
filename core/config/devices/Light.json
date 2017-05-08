@@ -2,8 +2,9 @@
     "Light": {
         "name": "Commande de lumiere",
 		"configuration": {
-			"version": "1.1",
-			"update": "Changement logicalId de la commande status"
+			"version": "1.2",
+			"update": "Add Family",
+			"family": "LIGHTING"
 		},
         "subtype": {
             "00": {

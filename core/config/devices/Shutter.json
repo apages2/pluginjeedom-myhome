@@ -2,8 +2,9 @@
 	"Shutter": {
 		"name": "Commande de Volet Roulant",
 		"configuration": {
-			"version": "1.4",
-			"update": "Ajout de la fonction inversé"
+			"version": "1.5",
+			"update": "Add Family",
+			"family": "SHUTTER"
 		},
 		"subtype": {
 			"00": {
