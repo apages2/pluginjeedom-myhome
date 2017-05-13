@@ -514,6 +514,7 @@ class myhome extends eqLogic {
 		//Allumage
 		if ($decrypted_trame["value"] == 'ON') {
 			$status = 'ON';
+			$statusnum = 1;
 			if ($family == 'DIMMER') {
 				log::add('myhome','debug',"family type = DIMMER, Check Light Status");
 				$Lightstatus="*#1*".hexdec($decrypted_trame["id"]).$decrypted_trame["unit"]."#9##";

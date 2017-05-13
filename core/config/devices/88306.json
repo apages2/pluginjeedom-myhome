@@ -24,9 +24,6 @@
                             "returnStateTime": "",
 							"unit": "1"
                         },
-						"display": {
-							"generic_type": "LIGHT_STATE"
-						}				
 					},
 				{
                         "name": "Status Numerique",
