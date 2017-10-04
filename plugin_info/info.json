@@ -1,0 +1,12 @@
+{
+        "id" : "myhome",
+        "name" : "Myhome",
+        "description" : "Plugin pour utiliser le module Legrand/Bticino Zigbee",
+        "icon" : "fa fa-rebel",
+        "licence" : "AGPL",
+        "author" : "Aurélien PAGES",
+        "require" : "3.1.3",
+        "category" : "automation protocol",
+		"hasOwnDeamon" : true,
+        "hasDependency" : true
+}
