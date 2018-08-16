@@ -551,523 +551,206 @@ class myhome extends eqLogic {
 		// FONCTION : MISE A JOUR DU STATUS DES VOLETS
 		// PARAMS : $decrypted_trame = array(
 				"trame" => string,
+				"mode" => string,
+				"media" => 'string',
 				"format" => 'string',
 				"type" => 'string',
 				"value" => string,
 				"dimension" => string,
 				"param" => string,
 				"id" => string,
-				"unit" => string,)
+				"unit" => string,
+				"date" => timestamp
 		$scenarios => boolean (true si l'on doit recherche des scenarios associés)
 		*/
 		
-		$def = new myhome_def();
+		//$def = new myhome_def();
 		
-		//Creation des variables utiles
 		$myhome = myhome::byLogicalId($decrypted_trame["id"], 'myhome');
 		$unit = $decrypted_trame["unit"];
-		$device_type = explode('::', $myhome->getConfiguration('device'));
-		$sousdevice = $device_type[1];
-		//On recupere la date de l'action et on ajoute le temps du relais interne
-		$date = strtotime($decrypted_trame["date"]);
-		//recuperation du derniere etat connu ET des possibilites
-		$statusid = 'status'.$unit;
-		$myhomecmd = $myhome->getCmd('info', $statusid);
-		$duree_cmd	= $myhomecmd->getConfiguration('DureeCmd');
-		$last_status = $myhomecmd->execCmd(null,2);
-		$statusidnum = 'statusnum'.$unit;
-		$myhomecmdnum = $myhome->getCmd('info', $statusidnum);
-		$updatedate=$myhomecmd->getConfiguration('updatedate');
-		log::add('myhome','debug',' last : '.$last_status.' Sous_device : '.$sousdevice. ' duréecmd : '.$duree_cmd.' id cmd : '.$myhomecmd->getId() . " date : ".$date);
-		//on test s'il faut faire un update des statuts
+		$deviceType = explode('::', $myhome->getConfiguration('device'));
+		$subDeviceType = $deviceType[1];
+		
+		//Récupération de l'horodatage de la commande
+		$timestampCmd = strtotime($decrypted_trame["date"]);
+		
+		//Récupération des derniers statuts
+		$statusId = 'status'.$unit;
+		$statusCmd = $myhome->getCmd('info', $statusId);
+		$maxDuration = $statusCmd->getConfiguration('DureeCmd');
+		$lastStatus = $statusCmd->execCmd(null,2);
+		$positionId = 'statusnum'.$unit;
+		$positionCmd = $myhome->getCmd('info', $positionId);
+		$lastPosition = $positionCmd->execCmd(null,0);
+      	$cmdStatusId = 'statuscde'.$unit;
+		$lastStatusUpdate = strtotime($statusCmd->getCollectDate());
+      	$cmdStatusCmd = $myhome->getCmd('info', $cmdStatusId);
+      	$cmdStatus = $cmdStatusCmd->execCmd();
+      	$stopStatusId = 'statusstop'.$unit;
+      	$stopStatusCmd = $myhome->getCmd('info', $stopStatusId);
+      	$stopStatus = $stopStatusCmd->execCmd();
+      	$closedStatusId = 'statusclosed'.$unit;
+      	$closedStatusCmd = $myhome->getCmd('info', $closedStatusId);
+      	$closedStatus = $closedStatusCmd->execCmd();
+
+		//Contrôle si update des statuts nécessaire
 		if ($decrypted_trame["value"] == 'MOVE_UP'
-				|| $decrypted_trame["value"] == 'MOVE_DOWN'
-				|| $decrypted_trame["value"] == 'MOVE_STOP') {
-			$value = $decrypted_trame["value"];
-			//Il ne s'agit pas d'une mise à jour
+			|| $decrypted_trame["value"] == 'MOVE_DOWN'
+			|| $decrypted_trame["value"] == 'MOVE_STOP') {
+			$shutterCmd = $decrypted_trame["value"];
 		} 
 		else {
 			return;
 		}
 
-		//gestion des temps ouverture/fermeture en fonction de la date
-			if (is_numeric($duree_cmd)) {
-				$move_time = $duree_cmd;
-			} 
-			else {
-				$move_time = 30;
-			}
-			//mise a jour en fonction du mouvement demande
-			log::add('myhome','debug',' sousdevice : '.$sousdevice.' statusid : '.$statusid.' statusidnum : '.$statusidnum . " updatedate : ".$updatedate);
-			
-			if ($sousdevice =='00') {
-			//Si il s'agit d'un bouton normal
-				log::add('myhome', 'debug', " Bouton normal \n");
-				if ($value == 'MOVE_UP') {
-					log::add('myhome', 'debug', "Action MOVE_UP");
-					//Si le volet est en train de monter
-					if ($last_status == 'UP') {
-						$status = 'UP';
-						$new_pos= ($move_time - ($updatedate - $date))/$move_time*100;
-						$statusnum = round($new_pos);
-						if ($new_pos >= 100) {
-								$status = 'OPEN';
-								$statusnum = 100;
-								$myhomecmd->setConfiguration('updatedate',NULL);
-								$myhomecmd->setConfiguration('returnStateValue',NULL);
-								$myhomecmd->setConfiguration('returnStateTime',NULL);
-								$myhomecmdnum->setConfiguration('updatedate',NULL);
-								$myhomecmdnum->setConfiguration('returnStateValue',NULL);
-								$myhomecmdnum->setConfiguration('returnStateTime',NULL);
-						}
-					//Si le volet est deja en haut
-					} 
-					elseif ($last_status == '100' || $last_status == 'OPEN') {
-						$status = 'OPEN';
-						$statusnum = 100;
-					//Si le volet change de sens
-					} 
-					elseif ($last_status == 'DOWN') {
-						$status = 'UP';
-						$new_pos = ($move_time - ($updatedate - $date))/$move_time*100;
-						$statusnum = round(100-$new_pos);
-						if ((100-$new_pos) <= 0) {
-								$statusnum = 0;
-								$myhomecmd->setConfiguration('updatedate',NULL);
-								$myhomecmd->setConfiguration('returnStateValue',NULL);
-								$myhomecmd->setConfiguration('returnStateTime',NULL);
-								$myhomecmdnum->setConfiguration('updatedate',NULL);
-								$myhomecmdnum->setConfiguration('returnStateValue',NULL);
-								$myhomecmdnum->setConfiguration('returnStateTime',NULL);
-						}
-						$sec=date("s");
-						if ($updatedate<$date)
-						{
-							$myhomecmd->setConfiguration('updatedate',NULL);
-							$myhomecmdnum->setConfiguration('updatedate',NULL);
-							$myhomecmd->save();
-							$myhomecmdnum->save();
-							$updatedate=0;
-						}
-						$move_time = round($new_pos/100*$move_time);
-						$move_time_quotient = floor($move_time/60);
-						log::add('myhome', 'debug', " Move time : ".$move_time);
-						$myhomecmd->setConfiguration('updatedate',$date+$move_time);
-						$myhomecmd->setConfiguration('returnStateValue','OPEN');
-						$myhomecmdnum->setConfiguration('updatedate',$date+$move_time);
-						$myhomecmdnum->setConfiguration('returnStateValue',100);
-						$nextupdate= 1+$move_time_quotient;
-						$myhomecmd->setConfiguration('returnStateTime',$nextupdate);
-						$myhomecmdnum->setConfiguration('returnStateTime',$nextupdate);
-						
-						//Si le volet est en position intermediaire ou completement ferme
-					} 
-					elseif (is_numeric($last_status) || $last_status == 'CLOSED') {
-						if ($last_status == 'CLOSED') {
-							$last_status = 0;
-						}
-						$status = 'UP';
-						$statusnum = $last_status;
-						$sec=date("s");
-						log::add('myhome', 'debug', "Point ".$status);
-						$move_time = $move_time - ($last_status/100*$move_time);
-						$move_time_quotient = floor($move_time/60);
-						log::add('myhome', 'debug', " Move time : ".$move_time);
-						$myhomecmd->setConfiguration('updatedate',$date+$move_time);
-						$myhomecmd->setConfiguration('returnStateValue','OPEN');
-						$myhomecmdnum->setConfiguration('updatedate',$date+$move_time);
-						$myhomecmdnum->setConfiguration('returnStateValue',100);
-						$nextupdate= 1+$move_time_quotient;
-						$myhomecmd->setConfiguration('returnStateTime',$nextupdate);
-						$myhomecmdnum->setConfiguration('returnStateTime',$nextupdate);
-					} 
-					else {
-						$status = 'OPEN';
-						$statusnum = 100;
-					}
-				} 
-				elseif ($value == 'MOVE_DOWN') {
-					log::add('myhome', 'debug', "Action move_DOWN");
-					//Si le volet est en train de descendre
-					if ($last_status == 'DOWN') {
-						$status = 'DOWN';
-						$new_pos= ($move_time - ($updatedate - $date))/$move_time*100;
-						$statusnum = round(100-$new_pos);
-						if ((100-$new_pos) <= 0) {
-								$status = 'CLOSED';
-								$statusnum = 0;
-								$myhomecmd->setConfiguration('updatedate',NULL);
-								$myhomecmd->setConfiguration('returnStateValue',NULL);
-								$myhomecmd->setConfiguration('returnStateTime',NULL);
-								$myhomecmdnum->setConfiguration('updatedate',NULL);
-								$myhomecmdnum->setConfiguration('returnStateValue',NULL);
-								$myhomecmdnum->setConfiguration('returnStateTime',NULL);
-						}
-						//Si le volet est deja en bas
-					} 
-					elseif ($last_status == '0' || $last_status == 'CLOSED') {
-						$status = 'CLOSED';
-						$statusnum = 0;
-						//Si le volet change de sens
-					} 
-					elseif ($last_status == 'UP') {
-						$status = 'DOWN';
-						$new_pos = ($move_time - ($updatedate - $date))/$move_time*100;
-						$statusnum = round($new_pos);
-						if (($new_pos) >= 100) {
-								$statusnum = 100;
-								$myhomecmd->setConfiguration('updatedate',NULL);
-								$myhomecmd->setConfiguration('returnStateValue',NULL);
-								$myhomecmd->setConfiguration('returnStateTime',NULL);
-								$myhomecmdnum->setConfiguration('updatedate',NULL);
-								$myhomecmdnum->setConfiguration('returnStateValue',NULL);
-								$myhomecmdnum->setConfiguration('returnStateTime',NULL);
-						}
-						$sec=date("s");
-						$updatedate=$myhomecmd->getConfiguration('updatedate');
-						if ($updatedate<$date)
-						{
-							$myhomecmd->setConfiguration('updatedate',NULL);
-							$myhomecmdnum->setConfiguration('updatedate',NULL);
-							$myhomecmd->save();
-							$myhomecmdnum->save();
-							$updatedate=0;
-						}
-						$move_time = round($new_pos/100*$move_time);
-						log::add('myhome', 'debug', " Move time : ".$move_time." New_pos : ".$new_pos);
-						$move_time_quotient = floor($move_time/60);
-						log::add('myhome', 'debug', " Move time : ".$move_time);						
-						$myhomecmd->setConfiguration('updatedate',$date+$move_time);
-						$myhomecmd->setConfiguration('returnStateValue','CLOSED');
-						$myhomecmdnum->setConfiguration('updatedate',$date+$move_time);
-						$myhomecmdnum->setConfiguration('returnStateValue',0);
-						$nextupdate= 1+$move_time_quotient;
-						$myhomecmd->setConfiguration('returnStateTime',$nextupdate);
-						$myhomecmdnum->setConfiguration('returnStateTime',$nextupdate);
-						log::add('myhome', 'debug', " Move time : ".$move_time);
-						
-						//Si le volet est arrete en position intermediaire ou completement ouvert
-					} 
-					elseif (is_numeric($last_status) || $last_status == 'OPEN') {
-						if ($last_status == 'OPEN') {
-							$last_status = 100;
-						}
-						$status = 'DOWN';
-						$statusnum = $last_status;
-						$sec=date("s");
-						log::add('myhome', 'debug', "Point ".$status."sec : ".$sec."movetime : ".$move_time);
-						$move_time = ($last_status/100*$move_time);
-						$move_time_quotient = floor($move_time/60);
-						log::add('myhome', 'debug', " Move time : ".$move_time);
-						$myhomecmd->setConfiguration('updatedate',$date+$move_time);
-						$myhomecmd->setConfiguration('returnStateValue','CLOSED');
-						$myhomecmdnum->setConfiguration('updatedate',$date+$move_time);
-						$myhomecmdnum->setConfiguration('returnStateValue',0);
-						$nextupdate= 1+$move_time_quotient;
-						$myhomecmd->setConfiguration('returnStateTime',$nextupdate);
-						$myhomecmdnum->setConfiguration('returnStateTime',$nextupdate);
-						log::add('myhome', 'debug', " Move time : ".$move_time);
-					} 
-					else {
-						$status = 'CLOSED';
-						$statusnum = 0;
-					}
-				} 
-				elseif ($value == 'MOVE_STOP') {
-					log::add('myhome', 'debug', "Action move_STOP");
-					//Par defaut on dit que le volet est arrete et donc à son ancienne position
-					$status = $last_status;
-					
-					$updatedate=$myhomecmd->getConfiguration('updatedate');
-					//Si le volet est deja en mouvement
-					if (!is_numeric($last_status) && isset($updatedate)) {
-						$new_pos = ($move_time - ($updatedate - $date))/$move_time*100;
-						log::add('myhome', 'debug', " updatedate : ".$updatedate." Newpos : ".$new_pos);
-						if ($last_status == 'UP') {
-							$status = round($new_pos);
-							$statusnum = round($new_pos);
-							log::add('myhome', 'debug', "last_status : Up, status : ".$status);
-							$myhomecmd->setConfiguration('returnStateValue',$status);
-							$myhomecmd->setConfiguration('returnStateTime',1);
-							$myhomecmdnum->setConfiguration('returnStateValue',$statusnum);
-							$myhomecmdnum->setConfiguration('returnStateTime',1);
-						} 
-						elseif ($last_status == 'DOWN') {
-							$status = round(100 - $new_pos);
-							$statusnum = round(100 - $new_pos);
-							log::add('myhome', 'debug', "last_status : Down, status : ".$status);
-							$myhomecmd->setConfiguration('returnStateValue',$status);
-							$myhomecmd->setConfiguration('returnStateTime',1);
-							$myhomecmdnum->setConfiguration('returnStateValue',$statusnum);
-							$myhomecmdnum->setConfiguration('returnStateTime',1);
-						}
-						if ($status <= 0) {
-							$status = 'CLOSED';
-							$statusnum = 0;
-							$myhomecmd->setConfiguration('updatedate',NULL);
-							$myhomecmd->setConfiguration('returnStateValue',NULL);
-							$myhomecmd->setConfiguration('returnStateTime',NULL);
-							$myhomecmdnum->setConfiguration('updatedate',NULL);
-							$myhomecmdnum->setConfiguration('returnStateValue',NULL);
-							$myhomecmdnum->setConfiguration('returnStateTime',NULL);
-						} 
-						elseif ($status >= 100) {
-							$status = 'OPEN';
-							$statusnum = 100;
-							$myhomecmd->setConfiguration('updatedate',NULL);
-							$myhomecmd->setConfiguration('returnStateValue',NULL);
-							$myhomecmd->setConfiguration('returnStateTime',NULL);
-							$myhomecmdnum->setConfiguration('updatedate',NULL);
-							$myhomecmdnum->setConfiguration('returnStateValue',NULL);
-							$myhomecmdnum->setConfiguration('returnStateTime',NULL);
-						}
-					} 
-					else {
-						$status = 'OPEN';
-						$statusnum = 100;
-					}
-				}
-				$myhomecmd->save();
-				$myhomecmdnum->save();
-			}		
-			elseif ($sousdevice == '01') {
+      //Gestion du template volet inversé
+      	if ($subDeviceType == '01') {
+          	switch ($shutterCmd) {
+				case 'MOVE_UP' :
+		            $shutterCmd = 'MOVE_DOWN';
+				    log::add('myhome','debug','---------------------------------------------------------------------------------------');
+					log::add('myhome','debug','[cmdId] => '.$statusCmd->getId().' [shutterId] =>'.hexdec($decrypted_trame["id"]).' [subDeviceType] => '.$subDeviceType.' [date] =>'.$decrypted_trame["date"].' [cmd] => '.$decrypted_trame["value"].' [updatedCmd] => '.$shutterCmd);
+				    log::add('myhome','debug','---------------------------------------------------------------------------------------');
+                	break;
+				case 'MOVE_DOWN' :
+                	$shutterCmd = 'MOVE_UP';
+				    log::add('myhome','debug','---------------------------------------------------------------------------------------');
+					log::add('myhome','debug','[cmdId] => '.$statusCmd->getId().' [shutterId] =>'.hexdec($decrypted_trame["id"]).' [subDeviceType] => '.$subDeviceType.' [date] =>'.$decrypted_trame["date"].' [cmd] => '.$decrypted_trame["value"].' [updatedCmd] => '.$shutterCmd);
+				    log::add('myhome','debug','---------------------------------------------------------------------------------------');
+                	break;
+            }    
+        }
+      
+	    log::add('myhome','debug','---------------------------------------------------------------------------------------');
+		log::add('myhome','debug','[cmdId] => '.$statusCmd->getId().' [shutterId] =>'.hexdec($decrypted_trame["id"]).' [subDeviceType] => '.$subDeviceType.' [date] =>'.$decrypted_trame["date"].' [cmd] => '.$decrypted_trame["value"].' [timestampCmd] => '.$timestampCmd);
+		log::add('myhome','debug','[cmdId] => '.$statusCmd->getId().' [shutterId] =>'.hexdec($decrypted_trame["id"]).' [lastStatusUpdate] => '.$statusCmd->getCollectDate().' [lastStatusUpdate] => '.$lastStatusUpdate.' [lastStatus] => '.$lastStatus.' [lastPosition] => '.$lastPosition.'%'.' [maxDuration] => '.$maxDuration.'s');
+		log::add('myhome','debug','[cmdId] => '.$statusCmd->getId().' [shutterId] =>'.hexdec($decrypted_trame["id"]).' [cmdStatus] => '.$cmdStatus.' [stopStatus] => '.$stopStatus.' [closedStatus] => '.$closedStatus);
 
-				//Si il s'agit d'un bouton inversé
-				log::add('myhome', 'debug', "Bouton Inversé ...\n");
-				if ($value == 'MOVE_UP') {
-					log::add('myhome', 'debug', "Action move_UP");
-					//Si le volet est en train de descendre
-					if ($last_status == 'DOWN') {
-						$status = 'DOWN';
-						$new_pos= ($move_time - ($updatedate - $date))/$move_time*100;
-						$statusnum = round(100-$new_pos);
-						if ((100-$new_pos) <= 0) {
-							$status = 'CLOSED';
-							$statusnum = 0;
-							$myhomecmd->setConfiguration('updatedate',NULL);
-							$myhomecmd->setConfiguration('returnStateValue',NULL);
-							$myhomecmd->setConfiguration('returnStateTime',NULL);
-							$myhomecmdnum->setConfiguration('updatedate',NULL);
-							$myhomecmdnum->setConfiguration('returnStateValue',NULL);
-							$myhomecmdnum->setConfiguration('returnStateTime',NULL);
-						}
-					//Si le volet est deja en bas
-					} 
-					elseif ($last_status == '0' || $last_status == 'CLOSED') {
-						$status = 'CLOSED';
-						$statusnum = 0;
-					//Si le volet change de sens
-					} 
-					elseif ($last_status == 'UP') {
-						$status = 'DOWN';
-						$new_pos = ($move_time - ($updatedate - $date))/$move_time*100;
-						$statusnum = round($new_pos);
-						if (($new_pos) >= 100) {
-							$statusnum = 100;
-							$myhomecmd->setConfiguration('updatedate',NULL);
-							$myhomecmd->setConfiguration('returnStateValue',NULL);
-							$myhomecmd->setConfiguration('returnStateTime',NULL);
-							$myhomecmdnum->setConfiguration('updatedate',NULL);
-							$myhomecmdnum->setConfiguration('returnStateValue',NULL);
-							$myhomecmdnum->setConfiguration('returnStateTime',NULL);
-						}
-						$sec=date("s");
-						$updatedate=$myhomecmd->getConfiguration('updatedate');
-						if ($updatedate<$date)
-						{
-							$myhomecmd->setConfiguration('updatedate',NULL);
-							$myhomecmdnum->setConfiguration('updatedate',NULL);
-							$myhomecmd->save();
-							$myhomecmdnum->save();
-							$updatedate=0;
-						}
-						$move_time = round($new_pos/100*$move_time);
-						log::add('myhome', 'debug', " Move time : ".$move_time." New_pos : ".$new_pos);
-						$move_time_quotient = floor($move_time/60);
-						log::add('myhome', 'debug', " Move time : ".$move_time);						
-						$myhomecmd->setConfiguration('updatedate',$date+$move_time);
-						$myhomecmd->setConfiguration('returnStateValue','CLOSED');
-						$myhomecmdnum->setConfiguration('updatedate',$date+$move_time);
-						$myhomecmdnum->setConfiguration('returnStateValue',0);
-						$nextupdate= 1+$move_time_quotient;
-						$myhomecmd->setConfiguration('returnStateTime',$nextupdate);
-						$myhomecmdnum->setConfiguration('returnStateTime',$nextupdate);
-						log::add('myhome', 'debug', " Move time : ".$move_time);
-					//Si le volet est en position intermediaire ou completement ouvert
-					} 
-					elseif (is_numeric($last_status) || $last_status == 'OPEN') {
-						if ($last_status == 'OPEN') {
-							$last_status = 100;
-						}
-						$status = 'DOWN';
-						$statusnum = $last_status;
-						$sec=date("s");
-						log::add('myhome', 'debug', "Point ".$status."sec : ".$sec."movetime : ".$move_time);
-						$move_time = ($last_status/100*$move_time);
-						$move_time_quotient = floor($move_time/60);
-						log::add('myhome', 'debug', " Move time : ".$move_time);
-						$myhomecmd->setConfiguration('updatedate',$date+$move_time);
-						$myhomecmd->setConfiguration('returnStateValue','CLOSED');
-						$myhomecmdnum->setConfiguration('updatedate',$date+$move_time);
-						$myhomecmdnum->setConfiguration('returnStateValue',0);
-						$nextupdate= 1+$move_time_quotient;
-						$myhomecmd->setConfiguration('returnStateTime',$nextupdate);
-						$myhomecmdnum->setConfiguration('returnStateTime',$nextupdate);
-						log::add('myhome', 'debug', " Move time : ".$move_time);
-					} 
-					else {
-						$status = 'CLOSED';
-						$statusnum = 0;
-					}
-				} 
-				elseif ($value == 'MOVE_DOWN') {
-					log::add('myhome', 'debug', "Action move_DOWN");
-					//Si le volet est en train de monter
-					if ($last_status == 'UP') {
-						$status = 'UP';
-						$new_pos= ($move_time - ($updatedate - $date))/$move_time*100;
-						$statusnum = round($new_pos);
-						if ($new_pos >= 100) {
-							$status = 'OPEN';
-							$statusnum = 100;
-							$myhomecmd->setConfiguration('updatedate',NULL);
-							$myhomecmd->setConfiguration('returnStateValue',NULL);
-							$myhomecmd->setConfiguration('returnStateTime',NULL);
-							$myhomecmdnum->setConfiguration('updatedate',NULL);
-							$myhomecmdnum->setConfiguration('returnStateValue',NULL);
-							$myhomecmdnum->setConfiguration('returnStateTime',NULL);
-						}
-						//Si le volet est deja en haut
-					} 
-					elseif ($last_status == '100' || $last_status == 'OPEN') {
-						$status = 'OPEN';
-						$statusnum = 100;
-						//Si le volet change de sens
-					} 
-					elseif ($last_status == 'DOWN') {
-						$status = 'UP';
-						$new_pos = ($move_time - ($updatedate - $date))/$move_time*100;
-						$statusnum = round(100-$new_pos);
-						if ((100-$new_pos) <= 0) {
-							$statusnum = 0;
-							$myhomecmd->setConfiguration('updatedate',NULL);
-							$myhomecmd->setConfiguration('returnStateValue',NULL);
-							$myhomecmd->setConfiguration('returnStateTime',NULL);
-							$myhomecmdnum->setConfiguration('updatedate',NULL);
-							$myhomecmdnum->setConfiguration('returnStateValue',NULL);
-							$myhomecmdnum->setConfiguration('returnStateTime',NULL);
-						}
-						$sec=date("s");
-						$updatedate=$myhomecmd->getConfiguration('updatedate');
-						if ($updatedate<$date)
-						{
-							$myhomecmd->setConfiguration('updatedate',NULL);
-							$myhomecmdnum->setConfiguration('updatedate',NULL);
-							$myhomecmd->save();
-							$myhomecmdnum->save();
-							$updatedate=0;
-						}
-						$move_time = round($new_pos/100*$move_time);
-						$move_time_quotient = floor($move_time/60);
-						log::add('myhome', 'debug', " Move time : ".$move_time);
-						$myhomecmd->setConfiguration('updatedate',$date+$move_time);
-						$myhomecmd->setConfiguration('returnStateValue','OPEN');
-						$myhomecmdnum->setConfiguration('updatedate',$date+$move_time);
-						$myhomecmdnum->setConfiguration('returnStateValue',100);			
-						$nextupdate= 1+$move_time_quotient;
-						$myhomecmd->setConfiguration('returnStateTime',$nextupdate);
-						$myhomecmdnum->setConfiguration('returnStateTime',$nextupdate);
-						//Si le volet est arrete en position intermediaire ou completement fermé
-					} 
-					elseif (is_numeric($last_status) || $last_status == 'CLOSED') {
-						if ($last_status == 'CLOSED') {
-							$last_status = 0;
-						}
-						$status = 'UP';
-						$statusnum = $last_status;
-						$sec=date("s");
-						log::add('myhome', 'debug', "Point ".$status);
-						$move_time = $move_time - ($last_status/100*$move_time);
-						$move_time_quotient = floor($move_time/60);
-						log::add('myhome', 'debug', " Move time : ".$move_time);
-						$myhomecmd->setConfiguration('updatedate',$date+$move_time);
-						$myhomecmd->setConfiguration('returnStateValue','OPEN');
-						$myhomecmdnum->setConfiguration('updatedate',$date+$move_time);
-						$myhomecmdnum->setConfiguration('returnStateValue',100);
-						$nextupdate= 1+$move_time_quotient;
-						$myhomecmd->setConfiguration('returnStateTime',$nextupdate);
-						$myhomecmdnum->setConfiguration('returnStateTime',$nextupdate);
-					} 
-					else {
-						$status = 'OPEN';
-						$statusnum = 100;
-					}
-				} 
-				elseif ($value == 'MOVE_STOP') {
-					log::add('myhome', 'debug', "Action move_STOP");
-					//Par defaut on dit que le volet est arrete et donc à son ancienne position
-					$status = $last_status;
-					
-					$updatedate=$myhomecmd->getConfiguration('updatedate');
-					//Si le volet est deja en mouvement
-					if (!is_numeric($last_status) && isset($updatedate)) {
-						$new_pos = ($move_time - ($updatedate - $date))/$move_time*100;
-						log::add('myhome', 'debug', " updatedate : ".$updatedate." Newpos : ".$new_pos);
-						if ($last_status == 'UP') {
-							$status = round($new_pos);
-							$statusnum = round($new_pos);
-							log::add('myhome', 'debug', "last_status : Up, status : ".$status);
-							$myhomecmd->setConfiguration('returnStateValue',$status);
-							$myhomecmd->setConfiguration('returnStateTime',1);
-							$myhomecmdnum->setConfiguration('returnStateValue',$statusnum);
-							$myhomecmdnum->setConfiguration('returnStateTime',1);
-						} 
-						elseif ($last_status == 'DOWN') {
-							$status = round(100 - $new_pos);
-							$statusnum = round(100 - $new_pos);
-							log::add('myhome', 'debug', "last_status : Down, status : ".$status);
-							$myhomecmd->setConfiguration('returnStateValue',$status);
-							$myhomecmd->setConfiguration('returnStateTime',1);
-							$myhomecmdnum->setConfiguration('returnStateValue',$statusnum);
-							$myhomecmdnum->setConfiguration('returnStateTime',1);
-						}
-						if ($status <= 0) {
-							$status = 'CLOSED';
-							$statusnum = 0;
-							$myhomecmd->setConfiguration('updatedate',NULL);
-							$myhomecmd->setConfiguration('returnStateValue',NULL);
-							$myhomecmd->setConfiguration('returnStateTime',NULL);
-							$myhomecmdnum->setConfiguration('updatedate',NULL);
-							$myhomecmdnum->setConfiguration('returnStateValue',NULL);
-							$myhomecmdnum->setConfiguration('returnStateTime',NULL);
-						} 
-						elseif ($status >= 100) {
-							$status = 'OPEN';
-							$statusnum = 100;
-							$myhomecmd->setConfiguration('updatedate',NULL);
-							$myhomecmd->setConfiguration('returnStateValue',NULL);
-							$myhomecmd->setConfiguration('returnStateTime',NULL);
-							$myhomecmdnum->setConfiguration('updatedate',NULL);
-							$myhomecmdnum->setConfiguration('returnStateValue',NULL);
-							$myhomecmdnum->setConfiguration('returnStateTime',NULL);
-						}
-					}
-					else {
-					$status = 'OPEN';
-					$statusnum = 100;
-					}
-				} 
-				$myhomecmd->save();
-				$myhomecmdnum->save();
-			}	
-				
-			//mise a jour simple du bouton
+
+		//Gestion de la durée maxi du mouvement
+		if (is_numeric($maxDuration) && $maxDuration > 0) {
+			$maxMoveTime = $maxDuration;
+		} 
+		else {
+			$maxMoveTime = 30;
+		}
 		
-			log::add('myhome','debug',"mise a jour du status : ".$status."\n");
-			$myhomecmd->event($status);
-			$myhomecmdnum->event($statusnum);
-	}	
+		//Mise à jour de la position et du statut du volet
+		$movementTime = 0;
+		$deplacement = 0;
+        $closedStatus = 0;
+		if ($cmdStatus != 0 && $cmdStatus != 1) {
+       		$cmdStatus = 0;
+        }
+		if ($stopStatus != 0 && $stopStatus != 1) {
+       		$stopStatus = 0;
+        }
+		switch ($shutterCmd) {
+			case 'MOVE_UP' :
+				if ($lastStatus == 'UP' || $lastStatus == 'OPEN') {
+					log::add('myhome','debug','[cmdId] => '.$statusCmd->getId().' [shutterId] =>'.hexdec($decrypted_trame["id"]).' [cmd] => '.$decrypted_trame["value"].' [lastStatus] => '.$lastStatus.' Mise à jour du statut non nécéssaire!');
+					log::add('myhome','debug','[cmdId] => '.$statusCmd->getId().' [shutterId] =>'.hexdec($decrypted_trame["id"]).' [cmdStatus] => '.$cmdStatus.' [stopStatus] => '.$stopStatus.' [closedStatus] => '.$closedStatus);
+					log::add('myhome','debug','---------------------------------------------------------------------------------------');
+					return;
+				}
+				if ($lastStatus == 'DOWN') {
+					$movementTime = $timestampCmd - $lastStatusUpdate;
+					$deplacement = round(-$movementTime * 100 / $maxMoveTime);
+				}
+				$status = 'UP';
+            	$cmdStatus = 1;
+ 		      	$cmdStatusCmd->event($cmdStatus);
+ 				break;		
+			case 'MOVE_DOWN' :
+				if ($lastStatus == 'DOWN' || $lastStatus == 'CLOSED') {
+					log::add('myhome','debug','[cmdId] => '.$statusCmd->getId().' [shutterId] =>'.hexdec($decrypted_trame["id"]).' [cmd] => '.$decrypted_trame["value"].' [lastStatus] => '.$lastStatus.' Mise à jour du statut non nécéssaire!');
+					log::add('myhome','debug','[cmdId] => '.$statusCmd->getId().' [shutterId] =>'.hexdec($decrypted_trame["id"]).' [cmdStatus] => '.$cmdStatus.' [stopStatus] => '.$stopStatus.' [closedStatus] => '.$closedStatus);
+					log::add('myhome','debug','---------------------------------------------------------------------------------------');
+					return;
+				}
+				if ($lastStatus == 'UP') {
+					$movementTime = $timestampCmd - $lastStatusUpdate;
+					$deplacement = round($movementTime * 100 / $maxMoveTime);
+				}
+				$status = 'DOWN';
+            	$cmdStatus = 0;
+		      	$cmdStatusCmd->event($cmdStatus);
+				break;
+			case 'MOVE_STOP' :
+				if ($lastStatus != 'UP' && $lastStatus != 'DOWN') {
+					log::add('myhome','debug','[cmdId] => '.$statusCmd->getId().' [shutterId] =>'.hexdec($decrypted_trame["id"]).' [cmd] => '.$decrypted_trame["value"].' [lastStatus] => '.$lastStatus.' Mise à jour du statut non nécéssaire!');
+					log::add('myhome','debug','[cmdId] => '.$statusCmd->getId().' [shutterId] =>'.hexdec($decrypted_trame["id"]).' [cmdStatus] => '.$cmdStatus.' [stopStatus] => '.$stopStatus.' [closedStatus] => '.$closedStatus);
+					log::add('myhome','debug','---------------------------------------------------------------------------------------');
+					return;
+				}
+				$movementTime = $timestampCmd - $lastStatusUpdate;
+				$deplacement = round($movementTime * 100 / $maxMoveTime);
+				if ($lastStatus == 'DOWN') {
+					$deplacement = -$deplacement;
+				}
+             	$stopStatus = !$stopStatus;
+ 		      	$stopStatusCmd->event($stopStatus);
+				break;
+			defaut :
+				return;
+		}
+		
+		log::add('myhome','debug','[cmdId] => '.$statusCmd->getId().' [shutterId] =>'.hexdec($decrypted_trame["id"]).' [movementTime] => '.$movementTime.'s'.' [deplacement] => '.$deplacement.'%'.' [lastPosition] => '.$lastPosition.'%');
 
+		$position = $lastPosition + $deplacement;
+		if ($status != 'UP' && $status != 'DOWN') {
+      		$status = $position;
+			if ($position >= 100) {
+				$position = 100;
+				$status = 'OPEN';
+			}
+			if ($position <= 0) {
+				$position = 0;
+				$status = 'CLOSED';
+            	$closedStatus = 1;
+			}
+        }
+		log::add('myhome','debug','[cmdId] => '.$statusCmd->getId().' [shutterId] =>'.hexdec($decrypted_trame["id"]).' [cmd] => '.$decrypted_trame["value"].' [lastStatus] => '.$lastStatus.' [newStatus] => '.$status.' [newPosition] => '.$position.'%'.' Mise à jour du statut!');
+		log::add('myhome','debug','[cmdId] => '.$statusCmd->getId().' [shutterId] =>'.hexdec($decrypted_trame["id"]).' [cmdStatus] => '.$cmdStatus.' [stopStatus] => '.$stopStatus.' [closedStatus] => '.$closedStatus);
+		log::add('myhome','debug','---------------------------------------------------------------------------------------');
+		
+		$statusCmd->event($status,$decrypted_trame["date"]);
+		$positionCmd->event($position,$decrypted_trame["date"]);
+      	$closedStatusCmd->event($closedStatus,$decrypted_trame["date"]);
+
+        if ($status != 'UP' && $status != 'DOWN') {
+           return;
+        }
+        if ($status == 'UP') {
+            $remainingMoveTime = round((100 - $position) * $maxMoveTime / 100);
+            log::add('myhome','debug','---------------------------------------------------------------------------------------');
+            log::add('myhome','debug','[cmdId] => '.$statusCmd->getId().' [shutterId] =>'.hexdec($decrypted_trame["id"]).' [cmd] => '.$decrypted_trame["value"].' [position] => '.$position.'%'.' [remainingMoveTime] =>'.$remainingMoveTime.'s');
+            log::add('myhome','debug','---------------------------------------------------------------------------------------');
+        }		
+        if ($status == 'DOWN') {
+            $remainingMoveTime = round($position * $maxMoveTime / 100);
+            log::add('myhome','debug','---------------------------------------------------------------------------------------');
+            log::add('myhome','debug','[cmdId] => '.$statusCmd->getId().' [shutterId] =>'.hexdec($decrypted_trame["id"]).' [cmd] => '.$decrypted_trame["value"].' [position] => '.$position.'%'.' [remainingMoveTime] =>'.$remainingMoveTime.'s');
+            log::add('myhome','debug','---------------------------------------------------------------------------------------');
+        }		
+ 		sleep ($remainingMoveTime + 2);
+		$lastStatus = $statusCmd->execCmd(null,2);
+		$lastStatusUpdate = $statusCmd->getCollectDate();
+		if (strtotime($lastStatusUpdate) == strtotime($decrypted_trame["date"]) && $lastStatus ==  $status) {
+			$stopCmd="*2*0*".hexdec($decrypted_trame["id"]).$decrypted_trame["unit"]."#9##";
+            log::add('myhome','debug','---------------------------------------------------------------------------------------');
+        	log::add('myhome','debug','[cmdId] => '.$statusCmd->getId().' [shutterId] =>'.hexdec($decrypted_trame["id"]).' [date] =>'.$decrypted_trame["date"].' [cmd] => '.$decrypted_trame["value"].' [lastStatusUpdate] => '.$lastStatusUpdate.' [lastStatus] => '.$lastStatus.' [status] => '.$status.' Envoi commande STOP!');
+            log::add('myhome','debug','---------------------------------------------------------------------------------------');
+			myhome::send_trame($stopCmd);
+        } 
+      	else{
+            log::add('myhome','debug','---------------------------------------------------------------------------------------');
+        	log::add('myhome','debug','[cmdId] => '.$statusCmd->getId().' [shutterId] =>'.hexdec($decrypted_trame["id"]).' [date] =>'.$decrypted_trame["date"].' [cmd] => '.$decrypted_trame["value"].' [lastStatusUpdate] => '.$lastStatusUpdate.' [lastStatus] => '.$lastStatus.' [status] => '.$status.' Le statut du volet à changer!');
+            log::add('myhome','debug','---------------------------------------------------------------------------------------');
+       }
+      
+	}
+  
 /*     * *********************Methode d'instance************************* */
 
 	public function preSave() {

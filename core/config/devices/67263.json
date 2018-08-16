@@ -2,8 +2,8 @@
 	"67263" : {
 		"name" : "Inter Volet",
 		"configuration" : {
-			"version" : "1.5",
-			"update": "Add Family",
+			"version" : "1.6",
+			"update": "Change By SEKI",
 			"family": "SHUTTER",
 			"nbunit" : "1"
 		},
@@ -43,6 +43,42 @@
 							"generic_type" : "FLAP_STATE"
 						}
 					}, 
+					{
+						"name" : "Etat commande",
+						"type" : "info",
+						"subtype" : "binary",
+						"isVisible" : 0,
+						"isHistorized" : 0,
+						"unite" : "",
+						"logicalId" : "statuscde01",
+						"configuration" : {
+							"unit" : "1"
+						}
+                    }, 
+					{
+						"name" : "Etat stop",
+						"type" : "info",
+						"subtype" : "binary",
+						"isVisible" : 0,
+						"isHistorized" : 0,
+						"unite" : "",
+						"logicalId" : "statusstop01",
+						"configuration" : {
+							"unit" : "1"
+						}
+                    }, 
+					{
+						"name" : "Etat fermé",
+						"type" : "info",
+						"subtype" : "binary",
+						"isVisible" : 0,
+						"isHistorized" : 0,
+						"unite" : "",
+						"logicalId" : "statusclosed01",
+						"configuration" : {
+							"unit" : "1"
+						}
+                    }, 
 					{
 						"name" : "Ouvrir",
 						"type" : "action",
@@ -122,6 +158,42 @@
 							"generic_type": "FLAP_STATE"
 						}					
 					},					
+					{
+						"name" : "Etat commande",
+						"type" : "info",
+						"subtype" : "binary",
+						"isVisible" : 0,
+						"isHistorized" : 0,
+						"unite" : "",
+						"logicalId" : "statuscde01",
+						"configuration" : {
+							"unit" : "1"
+						}
+                    }, 
+					{
+						"name" : "Etat stop",
+						"type" : "info",
+						"subtype" : "binary",
+						"isVisible" : 0,
+						"isHistorized" : 0,
+						"unite" : "",
+						"logicalId" : "statusstop01",
+						"configuration" : {
+							"unit" : "1"
+						}
+                    }, 
+					{
+						"name" : "Etat fermé",
+						"type" : "info",
+						"subtype" : "binary",
+						"isVisible" : 0,
+						"isHistorized" : 0,
+						"unite" : "",
+						"logicalId" : "statusclosed01",
+						"configuration" : {
+							"unit" : "1"
+						}
+                    }, 
 					{
                         "name": "Ouvrir",
                         "type": "action",

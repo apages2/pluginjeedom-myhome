@@ -2,9 +2,10 @@
 	"Shutter": {
 		"name": "Commande de Volet Roulant",
 		"configuration": {
-			"version": "1.5",
-			"update": "Add Family",
-			"family": "SHUTTER"
+			"version": "1.6",
+			"update": "Change By SEKI",
+			"family": "SHUTTER",
+			"nbunit" : "1"
 		},
 		"subtype": {
 			"00": {
@@ -46,18 +47,48 @@
 						}
 					}, 
 					{
+						"name" : "Etat commande",
+						"type" : "info",
+						"subtype" : "binary",
+						"isVisible" : 0,
+						"isHistorized" : 0,
+						"unite" : "",
+						"logicalId" : "statuscde01",
+						"configuration" : {
+							"unit" : "1"						}
+                    }, 
+					{
+						"name" : "Etat stop",
+						"type" : "info",
+						"subtype" : "binary",
+						"isVisible" : 0,
+						"isHistorized" : 0,
+						"unite" : "",
+						"logicalId" : "statusstop01",
+						"configuration" : {
+							"unit" : "1"
+						}
+                    }, 
+					{
+						"name" : "Etat fermé",
+						"type" : "info",
+						"subtype" : "binary",
+						"isVisible" : 0,
+						"isHistorized" : 0,
+						"unite" : "",
+						"logicalId" : "statusclosed01",
+						"configuration" : {
+							"unit" : "1"
+						}
+                    },
+					{
                         "name": "Ouvrir",
                         "type": "action",
 						"subtype": "other",
                         "isVisible": 1,
 						"logicalId": "*#WHO#*1*#WHERE##IDUNIT##MEDIA###",
 						"configuration": {
-							"whatdim": {
-								"what": "2",
-								"dim": "NULL",
-								"nom": "Move_Up"
-							},	
-							"unit": "2",
+							"unit": "1",
 							"where": "Unicast"
                         },
 						"display": {
@@ -71,12 +102,7 @@
                         "isVisible": 1,
 						"logicalId": "*#WHO#*2*#WHERE##IDUNIT##MEDIA###",
 						"configuration": {
-							"whatdim": {
-								"what": "1",
-								"dim": "NULL",
-								"nom": "Move_Down"
-							},
-							"unit": "2",
+							"unit": "1",
 							"where": "Unicast"
 						},
 						"display": {
@@ -90,12 +116,7 @@
                         "isVisible": 1,
 						"logicalId": "*#WHO#*0*#WHERE##IDUNIT##MEDIA###",
 						"configuration": {
-							"whatdim": {
-								"what": "0",
-								"dim": "NULL",
-								"nom": "Move_Stop"
-							},
-							"unit": "2",
+							"unit": "1",
 							"where": "Unicast"
 						},
 						"display": {
@@ -156,6 +177,41 @@
 							"generic_type": "FLAP_STATE"
 						}					
 					},					
+					{
+						"name" : "Etat commande",
+						"type" : "info",
+						"subtype" : "binary",
+						"isVisible" : 0,
+						"isHistorized" : 0,
+						"unite" : "",
+						"logicalId" : "statuscde01",
+						"configuration" : {
+							"unit" : "1"						}
+                    }, 
+					{
+						"name" : "Etat stop",
+						"type" : "info",
+						"subtype" : "binary",
+						"isVisible" : 0,
+						"isHistorized" : 0,
+						"unite" : "",
+						"logicalId" : "statusstop01",
+						"configuration" : {
+							"unit" : "1"
+						}
+                    }, 
+					{
+						"name" : "Etat fermé",
+						"type" : "info",
+						"subtype" : "binary",
+						"isVisible" : 0,
+						"isHistorized" : 0,
+						"unite" : "",
+						"logicalId" : "statusclosed01",
+						"configuration" : {
+							"unit" : "1"
+						}
+                    }, 
 					{
                         "name": "Ouvrir",
                         "type": "action",
