@@ -1,0 +1,114 @@
+{
+  "67234": {
+    "name": "Inter Double",
+    "configuration": {
+		"version": "1.0",
+        "update": "creation",
+        "family": "LIGHTING"
+    },
+	"subtype": {
+        "00": {
+			"name": "Defaut",
+            "commands": 
+				[
+					{
+						"name": "Status1",
+						"type": "info",
+						"subtype": "string",
+						"isVisible": 1,
+						"isHistorized": 0,
+						"unite": "",
+						"eventOnly": 1,
+						"logicalId": "status01",	
+						"configuration": {
+							"returnStateValue": "",
+							"returnStateTime": "",
+							"unit": "1"
+						},
+						"display": {
+							"generic_type": "LIGHT_STATE"
+						}				
+					},
+					{
+						"name": "Off Bouton1",
+						"type": "action",
+						"subtype": "other",
+						"isVisible": 1,
+						"logicalId": "*1*0*#WHERE##IDUNIT##9##",
+						"eventOnly": 1,
+						"configuration": {
+							"unit": "1",
+							"where": "Unicast"
+						},
+						"display": {
+							"generic_type": "LIGHT_OFF"
+						}
+					},
+					{
+						"name": "On Bouton1",
+						"type": "action",
+						"subtype": "other",
+						"isVisible": 1,
+						"logicalId": "*1*1*#WHERE##IDUNIT##9##",
+						"eventOnly": 1,
+						"configuration": {
+							"unit": "1",
+							"where": "Unicast"
+						},
+						"display": {
+							"generic_type": "LIGHT_ON"
+						}
+					},
+					{
+						"name": "Status2",
+						"type": "info",
+						"subtype": "string",
+						"isVisible": 1,
+						"isHistorized": 0,
+						"unite": "",
+						"eventOnly": 1,
+						"logicalId": "status02",	
+						"configuration": {
+							"returnStateValue": "",
+							"returnStateTime": "",
+							"unit": "2"
+						},
+						"display": {
+							"generic_type": "LIGHT_STATE"
+						}
+					},
+					{
+						"name": "Off Bouton2",
+						"type": "action",
+						"subtype": "other",
+						"isVisible": 1,
+						"logicalId": "*1*0*#WHERE##IDUNIT##9##",
+						"eventOnly": 1,
+						"configuration": {
+							"unit": "2",
+							"where": "Unicast"
+						},
+						"display": {
+							"generic_type": "LIGHT_OFF"
+						}
+					},
+					{
+						"name": "On Bouton2",
+						"type": "action",
+						"subtype": "other",
+						"isVisible": 1,
+						"logicalId": "*1*1*#WHERE##IDUNIT##9##",
+						"eventOnly": 1,
+						"configuration": {
+							"unit": "2",
+							"where": "Unicast"
+						},
+						"display": {
+							"generic_type": "LIGHT_ON"
+						}
+					}
+                ]
+            }
+        }
+    }
+}
