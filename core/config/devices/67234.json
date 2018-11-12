@@ -3,6 +3,7 @@
     "name": "Inter Double",
     "configuration": {
 		"version": "1.0",
+	    	"nbunit" : "2",
         "update": "creation",
         "family": "LIGHTING"
     },
