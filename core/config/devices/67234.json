@@ -25,10 +25,24 @@
 							"returnStateValue": "",
 							"returnStateTime": "",
 							"unit": "1"
+						},				
+					},
+					{
+						"name": "Status Numerique1",
+						"type": "info",
+						"subtype": "numeric",
+						"isVisible": 0,
+						"isHistorized": 0,
+						"unite": "",
+						"logicalId": "statusnum01",	
+						"configuration": {
+						    "returnStateValue": "",
+						    "returnStateTime": "",
+						    "unit": "1"
 						},
 						"display": {
 							"generic_type": "LIGHT_STATE"
-						}				
+						}			
 					},
 					{
 						"name": "Off Bouton1",
@@ -38,6 +52,11 @@
 						"logicalId": "*1*0*#WHERE##IDUNIT##9##",
 						"eventOnly": 1,
 						"configuration": {
+							"whatdim": {
+								"what": "0",
+								"dim": "NULL",
+								"nom": "Off"
+							},
 							"unit": "1",
 							"where": "Unicast"
 						},
@@ -53,6 +72,11 @@
 						"logicalId": "*1*1*#WHERE##IDUNIT##9##",
 						"eventOnly": 1,
 						"configuration": {
+							"whatdim": {
+								"what": "1",
+								"dim": "NULL",
+								"nom": "On"
+							},
 							"unit": "1",
 							"where": "Unicast"
 						},
@@ -73,10 +97,24 @@
 							"returnStateValue": "",
 							"returnStateTime": "",
 							"unit": "2"
+						}
+					},
+					{
+						"name": "Status Numerique2",
+						"type": "info",
+						"subtype": "numeric",
+						"isVisible": 0,
+						"isHistorized": 0,
+						"unite": "",
+						"logicalId": "statusnum02",	
+						"configuration": {
+						    "returnStateValue": "",
+						    "returnStateTime": "",
+						    "unit": "1"
 						},
 						"display": {
 							"generic_type": "LIGHT_STATE"
-						}
+						}			
 					},
 					{
 						"name": "Off Bouton2",
@@ -86,6 +124,11 @@
 						"logicalId": "*1*0*#WHERE##IDUNIT##9##",
 						"eventOnly": 1,
 						"configuration": {
+							"whatdim": {
+								"what": ""0,
+								"dim": "NULL",
+								"nom": "Off"
+							},
 							"unit": "2",
 							"where": "Unicast"
 						},
@@ -101,6 +144,11 @@
 						"logicalId": "*1*1*#WHERE##IDUNIT##9##",
 						"eventOnly": 1,
 						"configuration": {
+							"whatdim": {
+								"what": "1",
+								"dim": "NULL",
+								"nom": "On"
+							},
 							"unit": "2",
 							"where": "Unicast"
 						},
