@@ -1,12 +1,12 @@
 {
   "67234": {
-    "name": "Inter Double",
-    "configuration": {
+	"name": "Inter Double",
+	"configuration": {
 		"version": "1.0",
-	    	"nbunit" : "2",
-        "update": "creation",
-        "family": "LIGHTING"
-    },
+		"nbunit" : "2",
+		"update": "creation",
+		"family": "LIGHTING"
+	},
 	"subtype": {
         "00": {
 			"name": "Defaut",
@@ -25,7 +25,7 @@
 							"returnStateValue": "",
 							"returnStateTime": "",
 							"unit": "1"
-						},				
+						}			
 					},
 					{
 						"name": "Status Numerique1",
@@ -125,7 +125,7 @@
 						"eventOnly": 1,
 						"configuration": {
 							"whatdim": {
-								"what": ""0,
+								"what": "0",
 								"dim": "NULL",
 								"nom": "Off"
 							},
