@@ -18,13 +18,13 @@ Une liste déroulante propose les ports USB actifs.
 Le port de socket interne : 55004 est le port par défaut utilisé par le daemon MyHome. Il vaut mieux éviter de le changer sans connaitre le 
 fonctionnement du daemon.
 
-![configuration01](../../assets/images/myhome1.png)
+![configuration01](../images/myhome1.png)
 
 Une fois configuré, on accède à la page du plugin MyHome.
 
 A gauche, la liste des modules MyHome, et au centre les onglets Général, Information et Commandes.
 
-![configuration02](../../assets/images/myhome2.png)
+![configuration02](../images/myhome2.png)
 
 Le menu à gauche présente l'ensemble des modules MyHome détectés et/ou configurés sur son installation 
 domotique. Pour l'instant le plugin détecte les modules Legrand, mais ne les reconnait pas automatiquement. 
@@ -35,7 +35,7 @@ Pour cela, il sera nécessaire soit de choisir un module dans la liste déroulan
 Le bouton "Ajouter équipement" permet d'ajouter des équipements spécifiques MyHome, en générale pour 
 des tests ou des commandes de type "Managements" ou "Spéciales".
 
-![configuration03](../../assets/images/myhome3.png)
+![configuration03](../images/myhome3.png)
 
 Lorsqu'on passe en mode Expert, on a accès à d'autres options : Type de commande, unit, type de 
 communication, trame brute.
@@ -46,17 +46,17 @@ de l'action ou de l'info (Action, curseur, message, etc...) et l'action (ON, OFF
 -   Le champ communication permet de choisir le type de communication (Multicast, Unicast ou Broadcast).
 -   Le champ LogicalID ou commande brute permet de nommer l'info ou de renseigner la trame "brute".
 
-![configuration04](../../assets/images/myhome4.png)
+![configuration04](../images/myhome4.png)
  
 L'onglet Information précise le type de l'équipement.
 
-![configuration05](../../assets/images/myhome6.png)
+![configuration05](../images/myhome6.png)
 
 L'onglet général permet de choisir le nom de l'équipement, sa destination dans l'arborescence de sa 
 domotique, la catégorie du module (dans le jargon Legrand : WHO), la possibilité de rendre inactif le 
 module dans Jeedom, ou encore de rendre visible ou invisible le module dans l'interface.
 
-![configuration06](../../assets/images/myhome7.png)
+![configuration06](../images/myhome7.png)
 
 L'onglet Commandes détaille l'ensemble des commandes (certains éléments ne sont disponibles qu'en mode expert).
 
@@ -64,7 +64,7 @@ Ces commandes sont automatiquement remplies si on choisit le type de module dans
 Les paramètres utiles sont Historiser, Afficher(la commande), Evènement (permet de forcer la demande d'info 
 sur le module).
 
-![configuration07](../../assets/images/myhome8.png)
+![configuration07](../images/myhome8.png)
 
 Dans une prochaine version et avec l'aide de tous, on pourrait imaginer que les modules soient reconnus 
 automatiquement
