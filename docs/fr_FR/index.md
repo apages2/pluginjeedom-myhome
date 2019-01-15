@@ -4,7 +4,6 @@ Plugin permettant d'utiliser l'adaptateur USB/ZIGBEE de Legrand (88328) ou Btici
 
 Configuration
 ===
-
 Le plugin MyHome permet de dialoguer avec l'ensemble des périphériques MyHome de Legrand 
 via le protocol Zigbee.
 
@@ -41,14 +40,11 @@ des tests ou des commandes de type "Managements" ou "Spéciales".
 Lorsqu'on passe en mode Expert, on a accès à d'autres options : Type de commande, unit, type de 
 communication, trame brute.
 
-Le champ type permet de choisir entre une commande de type action ou une commande de type info, le type 
+-   Le champ type permet de choisir entre une commande de type action ou une commande de type info, le type 
 de l'action ou de l'info (Action, curseur, message, etc...) et l'action (ON, OFF, etc...).
-
-Le champ unit permet de saisir l'unit utilisée pour la commande ou pour le retour d'état.
-
-Le champ communication permet de choisir le type de communication (Multicast, Unicast ou Broadcast).
-
-Le champ LogicalID ou commande brute permet de nommer l'info ou de renseigner la trame "brute".
+-   Le champ unit permet de saisir l'unit utilisée pour la commande ou pour le retour d'état.
+-   Le champ communication permet de choisir le type de communication (Multicast, Unicast ou Broadcast).
+-   Le champ LogicalID ou commande brute permet de nommer l'info ou de renseigner la trame "brute".
 
 ![configuration04](../../assets/images/myhome4.png)
  
@@ -87,7 +83,6 @@ Liste des modules connus
 
 Ajouter un Equipement 
 ===
-
 La plupart des équipements sont rajoutés dans le plugin MyHome dès qu'ils sont détectés par le module USB.
 
 Une fois le module créé dans le plugin, deux solutions s'offrent à vous. 
@@ -134,7 +129,6 @@ Merci à vous.
 
 Depannage et diagnostic
 ===
-
 Le deamon refuse de démarrer
 ----------------------------
 
