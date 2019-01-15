@@ -8,10 +8,12 @@ Configuration
 Le plugin MyHome permet de dialoguer avec l'ensemble des périphériques MyHome de Legrand 
 via le protocol Zigbee.
 
-Après l'avoir téléchargé sur le Market, il sera nécessaire de configurer le port sur leque 
+Après l'avoir téléchargé sur le Market, il sera nécessaire de configurer le port sur lequel
 est connecté le module USB/ZIGBEE, ainsi que la vitesse du port.
 
+
 En général : /dev/ttyUSB0:19200. 
+
 
 Une liste déroulante propose les ports USB actifs. 
 Le port de socket interne : 55004 est le port par défaut utilisé par le daemon MyHome. Il vaut mieux éviter de le changer sans connaitre le 
