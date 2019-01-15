@@ -131,7 +131,7 @@ Depannage et diagnostic
 ===
 
 Le deamon refuse de démarrer
-----------------------------
+-----------------------------
 
 Essayer de le démarrer en mode debug pour voir l'erreur
 
