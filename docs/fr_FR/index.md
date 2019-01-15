@@ -129,6 +129,7 @@ Merci à vous.
 
 Depannage et diagnostic
 ===
+
 Le deamon refuse de démarrer
 ----------------------------
 
