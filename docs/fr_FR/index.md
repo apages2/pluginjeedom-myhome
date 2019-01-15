@@ -1,6 +1,3 @@
-MyHome
-===
-
 Description
 ===
 Plugin permettant d'utiliser l'adaptateur USB/ZIGBEE de Legrand (88328) ou Bticino (3578)
