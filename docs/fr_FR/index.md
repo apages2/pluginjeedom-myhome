@@ -81,7 +81,7 @@ Liste des modules connus
 -    88306 : Inter micromodule 1 circuit ON/OFF 300 W MyHOME Play - avec neutre
 -    88337 : Prise mobile 1 circuit 2500 W MyHOME Play"
 
-Ajouter un Equipement 
+Ajouter un équipement 
 ===
 La plupart des équipements sont rajoutés dans le plugin MyHome dès qu'ils sont détectés par le module USB.
 

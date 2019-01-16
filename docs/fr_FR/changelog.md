@@ -1,3 +1,6 @@
+### V1.107 du 16/01/2019 17:47
+-   Mise à jour de la doc au nouveau format
+
 ### V1.106 du 04/10/2017 10:11
 -   Mise a jour pour compatibilité 3.1.3
 
