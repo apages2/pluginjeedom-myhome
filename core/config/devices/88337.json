@@ -2,76 +2,76 @@
     "88337": {
         "name": "Prise mobile 1 circuit 2500 W MyHOME Play",
         "configuration": {
-                            "version": "1.4",
-							"update": "Add Family",
-							"family": "LIGHTING",
-							"nbunit" : "1"
-                        },
-		"subtype": {
+ 	        "version": "1.4",
+		"update": "Add Family",
+		"family": "LIGHTING",
+		"nbunit" : "1"
+         },
+	"subtype": {
             "00": {
                 "name": "Defaut",
                 "commands": [
-                    {
+                {
                         "name": "Status",
                         "type": "info",
-						"subtype": "string",
+			"subtype": "string",
                         "isVisible": 1,
-						"isHistorized": 0,
+			"isHistorized": 0,
                         "unite": "",
-						"eventOnly": 1,
-						"logicalId": "status01",	
-						"configuration": {
+			"eventOnly": 1,
+			"logicalId": "status01",
+			"configuration": {
                             "returnStateValue": "",
                             "returnStateTime": "",
-							"unit": "1"
-                        }				
-					},
-					{
+				"unit": "1"
+                        }
+		},
+		{
                         "name": "Status Numerique",
                         "type": "info",
-						"subtype": "numeric",
+			"subtype": "numeric",
                         "isVisible": 0,
-						"isHistorized": 0,
+			"isHistorized": 0,
                         "unite": "",
-						"logicalId": "statusnum01",	
-						"configuration": {
-                            "returnStateValue": "",
-                            "returnStateTime": "",
-							"unit": "1"
-                        },
-						"display": {
-							"generic_type": "LIGHT_STATE"
-						}			
-					},
-					{
+			"logicalId": "statusnum01",	
+			"configuration": {
+        	                "returnStateValue": "",
+	                        "returnStateTime": "",
+				"unit": "1"
+                	},
+			"display": {
+				"generic_type": "LIGHT_STATE"
+			}
+		},
+		{
                         "name": "ON",
                         "type": "action",
-						"subtype": "other",
+			"subtype": "other",
                         "isVisible": 1,
-						"logicalId": "*1*1*#WHERE##IDUNIT##9##",
-						"configuration": {
-							"unit": "1",
-							"where": "Unicast"
+			"logicalId": "*1*1*#WHERE##IDUNIT##9##",
+			"configuration": {
+				"unit": "1",
+				"where": "Unicast"
                         },
-						"display": {
-							"generic_type": "LIGHT_ON"
-						}
-                    },
-                   {
+			"display": {
+				"generic_type": "LIGHT_ON"
+			}
+                },
+                {
                         "name": "OFF",
                         "type": "action",
-						"subtype": "other",
+			"subtype": "other",
                         "isVisible": 1,
-						"logicalId": "*1*0*#WHERE##IDUNIT##9##",
-						"eventOnly": 1,
-						"configuration": {
-							"unit": "1",
-							"where": "Unicast"
+			"logicalId": "*1*0*#WHERE##IDUNIT##9##",
+			"eventOnly": 1,
+			"configuration": {
+				"unit": "1",
+				"where": "Unicast"
                         },
-						"display": {
-							"generic_type": "LIGHT_OFF"
-						}
-					}
+			"display": {
+				"generic_type": "LIGHT_OFF"
+			}
+		}
                 ]
             }
         }

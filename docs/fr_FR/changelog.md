@@ -1,3 +1,6 @@
+### V1.108 du 18/11/2019 20:45
+-   Mise à jour du plugin pour compatibilité Jeedom V4 + correction template 88306
+
 ### V1.107 du 16/01/2019 17:47
 -   Mise à jour de la doc au nouveau format
 
