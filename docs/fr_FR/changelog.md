@@ -1,3 +1,6 @@
+### V1.109 du 24/06/2021 20:13
+-   Correction d'un bug sur le champ la valeur de la commande vaut par défaut la commande dans l'onglet commande merci à alx68
+
 ### V1.108 du 18/11/2019 20:45
 -   Mise à jour du plugin pour compatibilité Jeedom V4 + correction template 88306
 
